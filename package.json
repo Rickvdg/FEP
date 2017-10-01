@@ -1,0 +1,22 @@
+{
+  "name": "leensysteem",
+  "version": "1.0.0",
+  "description": "Systeem om te lenen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rickvdg/FEP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rickvdg/FEP/issues"
+  },
+  "homepage": "https://github.com/Rickvdg/FEP#readme",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}

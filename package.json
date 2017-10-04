@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Rickvdg/FEP#readme",
   "dependencies": {
+    "bootstrap": "^4.0.0-beta",
     "jquery": "^3.2.1"
   }
 }

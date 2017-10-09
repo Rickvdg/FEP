@@ -1,20 +1,28 @@
-<!--Hier word de menu bank aan toegevoegd-->
-<!--<nav>-->
-  <!--<ul>-->
-    <!--<li><a routerLink="/main" routerLinkActive="active">main</a></li>-->
-    <!--<li><a routerLink="/home" routerLinkActive="active">home</a></li>-->
-  <!--</ul>-->
-<!--</nav>-->
+<!--De menubalk:-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" routerLink="/main" routerLinkActive="active">Uitleensysteem</a>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
+  <div class="collapse navbar-collapse" id="navbarText">
+    <div class="navbar-nav mr-auto">
       <a class="nav-item nav-link active" routerLink="/home" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link active" routerLink="/catalog" routerLinkActive="active">Catalog</a>
+      <a class="nav-item nav-link active" routerLink="/reservations" routerLinkActive="active">Reservations</a>
+      <!--<a class="nav-item nav-link active" routerLink="/login" routerLinkActive="active">Login</a>-->
+      <a class="nav-item nav-link active" (click)="login()" *ngIf="!auth.isLoggedIn()" >Login</a>
+      <a class="nav-item nav-link active" (click)="logout()" *ngIf="auth.isLoggedIn()" >Logout</a>
     </div>
+    <span class="navbar-text">
+      {{auth.getDisplayName()}} &nbsp;
+    </span>
+    <a class="navbar-brand" href="#">
+      <img [src]="auth.getPhotoURL()" width="30" height="30" class="d-inline-block align-top circular" alt="">
+    </a>
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
+
 </nav>
-<div class="container">
-  <div class="jumbotron">
-    <router-outlet></router-outlet>
-  </div>
+<div class="container jumbotron">
+  <router-outlet></router-outlet>
 </div>

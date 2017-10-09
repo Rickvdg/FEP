@@ -3,6 +3,5 @@
 /node_modules/
 /.angular-cli.json
 .idea/
-/LeenSysteem/e2e/app.e2e-spec.ts
-/LeenSysteem/e2e/app.po.ts
-/LeenSysteem/e2e/tsconfig.e2e.json
+/LeenSysteem/e2e/
+/LeenSysteem/.idea/

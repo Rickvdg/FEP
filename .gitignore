@@ -5,3 +5,6 @@
 .idea/
 /LeenSysteem/e2e/
 /LeenSysteem/.idea/
+LeenSysteem/.idea/LeenSysteem.iml
+LeenSysteem/.idea/workspace.xml
+LeenSysteem/e2e/tsconfig.e2e.json

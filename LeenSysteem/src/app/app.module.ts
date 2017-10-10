@@ -9,12 +9,15 @@ import { MainComponent } from './main/main.component';
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import {AuthenticationService} from "./authentication.service";
+import { AuthenticationService } from "./authentication.service";
+import { AuthGuardService } from './auth-guard.service';
+import { CatalogComponent } from './catalog/catalog.component';
 
 const appRoutes: Routes = [
   { path: 'main', component: MainComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuardService]},
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ]
@@ -25,7 +28,8 @@ const appRoutes: Routes = [
     MainComponent,
     NotFoundComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,
@@ -34,8 +38,8 @@ const appRoutes: Routes = [
     NgbModule.forRoot()
   ],
   providers: [
-    AuthenticationService
-    // AuthGuardService
+    AuthenticationService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

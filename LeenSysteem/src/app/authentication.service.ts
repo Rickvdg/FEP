@@ -7,6 +7,7 @@ export class AuthenticationService {
   private loggedIn = false;
   private displayName = '';
   private displayPhotoURL = '';
+  public errorMessage = '';
 
   constructor(private firebaseAuth: AngularFireAuth) {
     this.firebaseAuth.authState.subscribe(
@@ -19,6 +20,7 @@ export class AuthenticationService {
           this.loggedIn = true;
           this.displayName = auth.displayName;
           this.displayPhotoURL = auth.photoURL;
+          this.errorMessage = '';
           console.log('Auth: ' + auth);
         }
       }

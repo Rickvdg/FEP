@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginModule } from './login/login.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AppComponent } from './app.component';
-import { MainComponent } from './main/main.component';
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -14,18 +14,16 @@ import { AuthGuardService } from './auth-guard.service';
 import { CatalogComponent } from './catalog/catalog.component';
 
 const appRoutes: Routes = [
-  { path: 'main', component: MainComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuardService]},
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
     NotFoundComponent,
     HomeComponent,
     LoginComponent,
@@ -35,7 +33,8 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true}),
     LoginModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    AngularFireDatabaseModule
   ],
   providers: [
     AuthenticationService,

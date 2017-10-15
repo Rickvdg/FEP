@@ -7,17 +7,20 @@ import {AuthenticationService} from "../authentication.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  public message = '';
 
   constructor(public auth: AuthenticationService) {}
 
   login() {
     console.log('login');
     this.auth.googleLogin();
+    this.message = '';
   }
 
   logout() {
     console.log('logout');
     this.auth.logout();
+    this.message = '';
   }
 
   getPhotoURL() {

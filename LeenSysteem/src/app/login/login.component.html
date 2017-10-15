@@ -1,5 +1,8 @@
 <p *ngIf="auth.isLoggedIn()">
   Welkom {{auth.getDisplayName()}}
 </p>
+<p *ngIf="!auth.isLoggedIn()">
+  {{auth.errorMessage}}
+</p>
 <button type="button" class="btn btn-primary" (click)="login()" *ngIf="!auth.isLoggedIn()">Login</button>
 <button type="button" class="btn btn-primary" (click)="logout()" *ngIf="auth.isLoggedIn()">Logout</button>

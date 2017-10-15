@@ -1,10 +1,10 @@
 <!--De menubalk:-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" routerLink="/main" routerLinkActive="active">Uitleensysteem</a>
+  <a class="navbar-brand" routerLink="/home" routerLinkActive="active">Uitleensysteem</a>
   <div class="collapse navbar-collapse" id="navbarText">
     <div class="navbar-nav mr-auto">
-      <a class="nav-item nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-      <a class="nav-item nav-link" routerLink="/catalog" routerLinkActive="active">Catalog</a>
+      <a class="nav-item nav-link" routerLink="/home" routerLinkActive="active" >Home</a>
+      <a class="nav-item nav-link" routerLink="/catalog" routerLinkActive="active" *ngIf="auth.isLoggedIn()">Catalog</a>
       <a class="nav-item nav-link" routerLink="/reservations" routerLinkActive="active">Reservations</a>
       <!--<a class="nav-item nav-link active" routerLink="/login" routerLinkActive="active">Login</a>-->
       <!--<a class="nav-item nav-link active" (click)="login()" *ngIf="!auth.isLoggedIn()">Login</a>-->

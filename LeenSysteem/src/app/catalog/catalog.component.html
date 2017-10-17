@@ -1,3 +1,11 @@
-<p>
-  catalog works!
-</p>
+<!--<li *ngFor="let item of items | async">{{item.lening}}</li>-->
+<!--<input type="text" #lening> <button mat-raised-button color="primary" (click)="addLening(lening.value)">Add lening</button>-->
+
+<div class="row">
+  <div class="col">
+    <li *ngFor="let item of items | async">{{item.lening}}</li>
+  </div>
+  <div class="col">
+    <input type="text" required minlength="1" #lening> <button mat-raised-button color="primary" (click)="addLening(lening.value)">Add msg</button>
+  </div>
+</div>

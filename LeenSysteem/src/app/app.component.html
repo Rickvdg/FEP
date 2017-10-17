@@ -5,7 +5,7 @@
     <div class="navbar-nav mr-auto">
       <a class="nav-item nav-link" routerLink="/home" routerLinkActive="active" >Home</a>
       <a class="nav-item nav-link" routerLink="/catalog" routerLinkActive="active" *ngIf="auth.isLoggedIn()">Catalog</a>
-      <a class="nav-item nav-link" routerLink="/reservations" routerLinkActive="active">Reservations</a>
+      <a class="nav-item nav-link" routerLink="/reservations" routerLinkActive="active" *ngIf="auth.isLoggedIn()">Reservations</a>
       <!--<a class="nav-item nav-link active" routerLink="/login" routerLinkActive="active">Login</a>-->
       <!--<a class="nav-item nav-link active" (click)="login()" *ngIf="!auth.isLoggedIn()">Login</a>-->
       <!--<a class="nav-item nav-link active" (click)="logout()" *ngIf="auth.isLoggedIn()">Logout</a>-->

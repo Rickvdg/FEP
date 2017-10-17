@@ -1,0 +1,26 @@
+<table class="table">
+  <thead class="thead-inverse">
+  <tr>
+    <th>#</th>
+    <th>Lener</th>
+    <th>Email</th>
+    <th>Status</th>
+    <th>Producten</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of items | async">
+    <th scope="row">{{item.key}}</th>
+    <td>{{item.lener}}</td>
+    <td>{{item.lenermail}}</td>
+    <td>{{item.status}}</td>
+    <!--<td><li *ngFor="let product of item.producten">{{product}}</li></td>-->
+    <td>{{item.child("producten")}}</td>
+    <!--<td>{{item.productid}} : {{item.aantal}}x</td>-->
+    <td>
+      <button *ngIf="item.status == 'gereserveerd'" mat-raised-button color="primary">Uitlenen</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

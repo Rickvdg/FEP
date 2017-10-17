@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from "./authentication.service";
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { FirebaseListObservable } from "angularfire2/database-deprecated";
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +9,13 @@ import { FirebaseListObservable } from "angularfire2/database-deprecated";
 })
 export class AppComponent {
   title = 'LeenSysteem';
-  items: AngularFireList<any[]>;
+  items: FirebaseListObservable<any[]>;
 
   constructor(
     public auth: AuthenticationService,
     public database: AngularFireDatabase
   ) {
-    this.items = database.list('/leningen');
+    this.items = database.list('/leningen-test');
   }
 
   login() {
@@ -37,6 +36,8 @@ export class AppComponent {
     this.auth.getDisplayName();
   }
 
-
+  addLening(newLening: string) {
+    this.items.push({ lening: newLening });
+  }
 }
 

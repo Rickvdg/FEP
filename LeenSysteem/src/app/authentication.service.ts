@@ -7,6 +7,7 @@ export class AuthenticationService {
   private loggedIn = false;
   private displayName = '';
   private displayPhotoURL = '';
+  private email = '';
   public errorMessage = '';
 
   constructor(private firebaseAuth: AngularFireAuth) {
@@ -16,10 +17,12 @@ export class AuthenticationService {
           this.loggedIn = false;
           this.displayName = '';
           this.displayPhotoURL = '';
+          this.email = '';
         } else {
           this.loggedIn = true;
           this.displayName = auth.displayName;
           this.displayPhotoURL = auth.photoURL;
+          this.email = auth.email;
           this.errorMessage = '';
           console.log('Auth: ' + auth);
         }
@@ -46,5 +49,9 @@ export class AuthenticationService {
 
   getPhotoURL() {
     return this.displayPhotoURL;
+  }
+
+  getEmail() {
+    return this.email;
   }
 }

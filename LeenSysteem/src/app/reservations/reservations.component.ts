@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database-deprecated';
+import {AuthenticationService} from "../authentication.service";
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-reservations',
@@ -8,9 +10,14 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 })
 export class ReservationsComponent implements OnInit {
   items: FirebaseListObservable<any[]>;
+  itemsUid: FirebaseListObservable<any[]>;
+  item: FirebaseObjectObservable<any>;
+
+  name: string = '';
 
   constructor(
-    public database: AngularFireDatabase
+    public database: AngularFireDatabase,
+    public auth: AuthenticationService
   ) {
     this.items = database.list('/leningen-test');
   }
@@ -18,8 +25,35 @@ export class ReservationsComponent implements OnInit {
   ngOnInit() {
   }
 
-  uitlenen(leningId: string) {
-    // this.items.update()
+  uitlenen(uid: string) {
+    this.item = this.database.object('/leningen-test/'+uid);
+    console.log(this.item);
+    this.item.update({ status: 'uitgeleend' })
     console.log()
+  }
+
+  addLening(inleverdatum: string, uitleendatum: string, status: string) {
+    let aRef = this.items.push({});
+    console.log(aRef.key);
+    aRef.set({
+      inleverdatum: inleverdatum,
+      uitleendatum: uitleendatum,
+      lener: this.auth.getDisplayName(),
+      lenermail: this.auth.getEmail(),
+      status: status,
+      producten: {
+        1: {id: 'Arduino NAno', aantal: 2},
+        2: {id: 'Arduino Uno', aantal: 1}
+      }
+    })
+  }
+
+  getProduct(id: string) {
+    this.item = this.database.object('/catalog-products/'+id, { preserveSnapshot: true });
+    this.item.subscribe(snapshot => {
+      // console.log(snapshot.val().name);
+      this.name = snapshot.val().name;
+    });
+    return this.name;
   }
 }

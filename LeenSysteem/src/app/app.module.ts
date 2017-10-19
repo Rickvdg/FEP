@@ -14,17 +14,17 @@ import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from "./authentication.service";
 import { AuthGuardService } from './auth-guard.service';
 import { CatalogComponent } from './catalog/catalog.component';
-// import { ReservationsComponent } from './reservations/reservations.component';
-import { AngularFireModule } from "angularfire2";
+import { ReservationsComponent } from './reservations/reservations.component';
+import {AngularFireModule} from "angularfire2";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuardService]},
-  // { path: 'reservations', component: ReservationsComponent, canActivate: [AuthGuardService]},
+  { path: 'reservations', component: ReservationsComponent, canActivate: [AuthGuardService]},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
-];
+]
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAiOOWusTDxJCv8IdUn6qpv8_fN2GJM3yE",
@@ -41,7 +41,7 @@ export const firebaseConfig = {
     HomeComponent,
     LoginComponent,
     CatalogComponent,
-    // ReservationsComponent
+    ReservationsComponent
   ],
   imports: [
     BrowserModule,

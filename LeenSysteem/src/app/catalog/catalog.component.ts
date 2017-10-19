@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'app-catalog',
@@ -6,8 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent implements OnInit {
+  productList: FirebaseListObservable<any[]>;
 
-  constructor() { }
+  constructor(
+    public database: AngularFireDatabase
+  ) {
+    this.productList = this.database.list('/catalog-products');
+
+
+  }
 
   ngOnInit() {
   }

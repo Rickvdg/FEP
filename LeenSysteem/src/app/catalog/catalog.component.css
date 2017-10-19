@@ -1,0 +1,14 @@
+.media-image{
+  width: 100px;
+  height: 100px;
+}
+
+.basket-min-height{
+  min-height: 400px;
+}
+
+.basket-button{
+  position: absolute;
+  right: -5px;
+  bottom: 10px;
+}

@@ -1,3 +1,77 @@
-<p>
-  catalog works!
-</p>
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-9 mt-3">
+      <div class="card bg-light">
+      <div class="card-header font-weight-bold">Catalog</div>
+      <div class="card-body pt-0 pl-0 pb-0 pr-0">
+      <table class="table table-hover mb-0">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product nr.</th>
+          <th>Product</th>
+          <th>Qty.</th>
+          <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let products of productList | async">
+
+          <td>{{ products.id }}</td>
+          <td>{{ products.productnumber }}</td>
+          <td>
+
+            <div class="media">
+              <img class="d-flex mr-3 media-image" src="{{ products.image }}" alt="Product Image">
+              <div class="media-body">
+                <h5 class="mt-0">{{ products.name }}</h5>
+                {{ products.description }}
+              </div>
+            </div>
+            <span class="badge badge-danger"> {{ products.category }} </span>
+            <span class="badge badge-info"> {{ products.tags }} </span>
+          </td>
+          <td>{{ products.qty }}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm btn-block">Add</button>
+            <button type="button" class="btn btn-warning btn-sm btn-block">Edit</button>
+            <button type="button" class="btn btn-danger btn-sm btn-block">Delete</button>
+          </td>
+        </tr>
+
+
+        </tbody>
+      </table>
+
+      </div>
+
+    </div>
+    </div>
+
+    <!-- BASKET - TODO deze moet naar eigen module toe gaan. -->
+    <div class="col-sm-3 mt-3 pt-0 pl-0 pb-0 pr-0">
+    <div class="card bg-light basket-min-height">
+
+      <div class="card-header font-weight-bold">Basket</div>
+      <div class="card-body pt-0 pl-0 pb-0 pr-0">
+
+        <table class="table table-hover mb-0">
+          <thead>
+          <tr>
+            <th>Product</th>
+            <th>Qty.</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+
+
+        </table>
+        <button type="button" class="btn btn-primary btn-sm mr-3 basket-button">Reserve</button>
+      </div>
+    </div>
+    </div>
+</div>
+</div>

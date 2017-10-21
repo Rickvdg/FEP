@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database-deprecated';
 import {AuthenticationService} from "../authentication.service";
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-reservations',
@@ -9,6 +10,7 @@ import 'rxjs/add/operator/take';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
+  today: number = Date.now();
   items: FirebaseListObservable<any[]>;
   itemsUid: FirebaseListObservable<any[]>;
   item: FirebaseObjectObservable<any>;
@@ -22,14 +24,21 @@ export class ReservationsComponent implements OnInit {
     this.items = database.list('/leningen-test');
   }
 
+  filter(value: any, status: string) : boolean{
+    // Return false if don't want this job in the results.
+    if (value.status == status){
+      return false;
+    }
+    return true;
+  }
+
   ngOnInit() {
   }
 
-  uitlenen(uid: string) {
+  uitlenen(uid: string, status: string) {
     this.item = this.database.object('/leningen-test/'+uid);
     console.log(this.item);
-    this.item.update({ status: 'uitgeleend' })
-    console.log()
+    this.item.update({ status: status });
   }
 
   addLening(inleverdatum: string, uitleendatum: string, status: string) {

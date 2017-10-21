@@ -16,6 +16,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { CatalogComponent } from './catalog/catalog.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import {AngularFireModule} from "angularfire2";
+import { CustomDatePipe } from './reservations/custom-date.pipe';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -41,7 +42,8 @@ export const firebaseConfig = {
     HomeComponent,
     LoginComponent,
     CatalogComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    CustomDatePipe
   ],
   imports: [
     BrowserModule,

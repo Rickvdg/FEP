@@ -3,6 +3,7 @@ import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} f
 import {AuthenticationService} from "../authentication.service";
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-reservations',
@@ -11,20 +12,26 @@ import 'rxjs/add/operator/map';
 })
 export class ReservationsComponent implements OnInit {
   today: number = Date.now();
+  today2: Date = new Date();
   items: FirebaseListObservable<any[]>;
-  itemsUid: FirebaseListObservable<any[]>;
   item: FirebaseObjectObservable<any>;
 
   name: string = '';
 
   constructor(
     public database: AngularFireDatabase,
-    public auth: AuthenticationService
+    public auth: AuthenticationService,
+    public snackBar: MatSnackBar
   ) {
     this.items = database.list('/leningen-test');
+    this.today2 = new Date();
   }
 
-  filter(value: any, status: string) : boolean{
+  getDateString(date: Date, plusDays: number) : string {
+    return (date.getDay() + plusDays) + '-' + date.getMonth() + '-' + date.getFullYear();
+  }
+
+  filter(value: any, status: string) : boolean {
     // Return false if don't want this job in the results.
     if (value.status == status){
       return false;
@@ -39,6 +46,7 @@ export class ReservationsComponent implements OnInit {
     this.item = this.database.object('/leningen-test/'+uid);
     console.log(this.item);
     this.item.update({ status: status });
+    // this.snackBar.open('De status is veranderd naar \''+status+'\'.', { duration: 2000 });
   }
 
   addLening(inleverdatum: string, uitleendatum: string, status: string) {

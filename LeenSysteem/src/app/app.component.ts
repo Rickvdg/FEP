@@ -39,4 +39,9 @@ export class AppComponent {
   addLening(newLening: string) {
     this.items.push({ lening: newLening });
   }
+
+  getRol() {
+    // this.auth.getRolFromData();
+    this.auth.getRol();
+  }
 }

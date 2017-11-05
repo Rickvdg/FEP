@@ -1,5 +1,7 @@
-<div class="jumbotron">
-  <button mat-raised-button (click)="addLening('20-10-2017','8-10-2017','gereserveerd')">Add reservering test</button>
+<div class="jumbotron" *ngIf="auth.getRol() == 'admin' || auth.getRol() == 'moderator'">
+  <input placeholder="Inleverdatum (dd-MM-yyyy)" maxlength="10" minlength="10" #inleverdatumInput><input placeholder="Uitleendatum (dd-MM-yyyy)" maxlength="10" minlength="10" #uitleendatumInput>
+  <button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" (click)="addLening(inleverdatumInput.value,uitleendatumInput.value,'gereserveerd')">Add reservering test</button>
+  <div  *ngIf="(items | async)?.length > 0">
   <h2>Reserveringen:</h2>
   <table class="table">
     <thead class="thead-inverse">
@@ -16,8 +18,8 @@
     <tbody>
     <tr *ngFor="let item of items | async" [hidden]="filter(item, 'gereserveerd')">
       <td>{{item.lener}}</td>
-      <td>{{item.uitleendatum | customDate | date: "dd-MM-yy" }}</td>
-      <td>{{item.inleverdatum | customDate | date: "dd-MM-yy" }}</td>
+      <td>{{item.uitleendatum}}</td>
+      <td>{{item.inleverdatum}}</td>
       <td>{{item.status}}</td>
       <td><span *ngFor="let product of item.producten"><li *ngIf="product != null">{{getProduct(product.id)}}: {{product.aantal}}x</li></span></td>
       <td>
@@ -43,12 +45,12 @@
     <tbody>
     <tr *ngFor="let item of items | async"
         [hidden]="filter(item, 'uitgeleend')"
-        [class.good]="(item.inleverdatum | customDate | date: 'yyyyMMdd') > (today | date: 'yyyyMMdd')"
-        [class.almost]="(item.inleverdatum | customDate | date: 'dd') == (today | date: 'dd')"
-        [class.late]="(item.inleverdatum | customDate | date: 'dd') < (today | date: 'dd')">
+        [class.good]="(item.inleverdatum | customDate | date: 'yyyyMMdd') >= (today | date: 'yyyyMMdd')"
+        [class.almost]="(item.inleverdatum | customDate | date: 'yyyyMMdd') == (today | date: 'yyyyMMdd')"
+        [class.late]="(item.inleverdatum | customDate | date: 'yyyyMMdd') <= (today | date: 'yyyyMMdd')">
       <td>{{item.lener}}</td>
-      <td>{{item.uitleendatum | customDate | date: "dd-MM-yy" }}</td>
-      <td>{{item.inleverdatum | customDate | date: "dd-MM-yy" }}</td>
+      <td>{{item.uitleendatum}}</td>
+      <td>{{item.inleverdatum}}</td>
       <td>{{item.status}}</td>
       <td><span *ngFor="let product of item.producten"><li *ngIf="product != null">{{getProduct(product.id)}}: {{product.aantal}}x</li></span></td>
       <td>
@@ -73,11 +75,18 @@
     <tbody>
     <tr *ngFor="let item of items | async" [hidden]="filter(item, 'ingeleverd')">
       <td>{{item.lener}}</td>
-      <td>{{item.uitleendatum | customDate | date: "dd-MM-yy" }}</td>
-      <td>{{item.inleverdatum | customDate | date: "dd-MM-yy" }}</td>
+      <td>{{item.uitleendatum}}</td>
+      <td>{{item.inleverdatum}}</td>
       <td>{{item.status}}</td>
       <td><span *ngFor="let product of item.producten"><li *ngIf="product != null">{{getProduct(product.id)}}: {{product.aantal}}x</li></span></td>
     </tr>
     </tbody>
   </table>
+  </div>
+  <div  *ngIf="(items | async)?.length <= 0">
+    <h3>Er zijn geen leningen om te laten zien</h3>
+  </div>
+</div>
+<div class="jumbotron" *ngIf="auth.getRol() == 'user'">
+  Je moet een admin zijn om deze content te zien
 </div>

@@ -42,7 +42,7 @@ export class ReservationsComponent implements OnInit {
       lenermail: this.auth.getEmail(),
       status: status,
       producten: {
-        1: {id: 'Arduino NAno', aantal: 2},
+        1: {id: 'Arduino Nano', aantal: 2},
         2: {id: 'Arduino Uno', aantal: 1}
       }
     })

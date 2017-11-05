@@ -1,0 +1,41 @@
+<div>
+  <h4 class="mt-0">Reservation date:</h4>
+  <mat-form-field>
+    <input matInput [(ngModel)]="datex" [min]="minDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div>
+    <h4 class="mt-0">submission date:</h4>
+    <div>{{ datex + 604800000 | date:'d-M-y' }}</div>
+  </div>
+</div>
+
+<br>
+
+<div class="card bg-light basket-min-height">
+  <div class="card-body pt-0 pl-0 pb-0 pr-0">
+    <table class="table table-hover mb-0">
+      <thead>
+      <tr>
+        <th>Product</th>
+        <th>Qty</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Arduino Nano</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>Arduino Uno</td>
+        <td>5</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<button (click)="addLening('22-10-2017','10-10-2017','gereserveerd')" class="btn btn-danger btn-sm mr-3 basket-button" type="submit">Cancel</button>
+
+<button class="btn btn-primary btn-sm mr-3 basket-button" type="submit">Reserve</button>

@@ -1,0 +1,208 @@
+<div class="content columns" >
+  <div class="column is-6">
+
+    <h3>Form Values</h3>
+    <p>Form value: <br> {{ productForm.value | json }}</p>
+    <p>Form status: {{ productForm.status | json }}</p>
+  </div>
+
+
+  <div class="column">
+    <form  [formGroup]="productForm" novalidate>
+
+      <h1>Add Product</h1>
+
+      <!--name-->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+        <label class="label">Name</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text"
+                     formControlName="name"
+                     [ngClass]="{
+                                'is-success' :  productForm.get('name').valid &&  productForm.get('name').dirty,
+                                'is-danger'  :  !productForm.get('name').valid
+                              }">
+            </div>
+            <p class="error is-danger" [hidden]="productForm.get('name').valid">
+              Name is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--quantity-->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Quantity</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="number"
+                     formControlName="qty"
+                     [ngClass]="{
+                               'is-success' :  productForm.get('qty').valid &&  productForm.get('qty').dirty,
+                               'is-danger'  :  !productForm.get('qty').valid
+                             }">
+            </div>
+            <p class="error is-danger" [hidden]="productForm.get('qty').valid">
+              Quantity is required and can't be negative.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--product number-->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Product Number</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text"
+                     formControlName="productnumber"
+                     [ngClass]="{
+                               'is-success' :  productForm.get('productnumber').valid &&  productForm.get('productnumber').dirty,
+                               'is-danger'  :  !productForm.get('productnumber').valid
+                             }">
+            </div>
+            <p class="error is-danger" [hidden]="productForm.get('productnumber').valid">
+              Productnumber is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--description-->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Description</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <textarea class="textarea"
+                        formControlName="description"
+                        [ngClass]="{
+                               'is-success' :  productForm.get('description').valid &&  productForm.get('description').dirty,
+                               'is-danger'  :  !productForm.get('description').valid
+                             }">
+              </textarea>
+              <p class="error" [hidden]="productForm.get('description').valid">Content is not valid</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--tags-->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+        <label class="label">Tags</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text"
+                     formControlName="tags"
+                     [ngClass]="{
+                                'is-success' :  productForm.get('tags').valid &&  productForm.get('tags').dirty,
+                                'is-danger'  :  !productForm.get('tags').valid
+                              }">
+            </div>
+            <p class="error is-danger" [hidden]="productForm.get('tags').valid">
+              Tags are required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--category-->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+        <label class="label">Category</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text"
+                     formControlName="category"
+                     [ngClass]="{
+                                'is-success' :  productForm.get('category').valid &&  productForm.get('category').dirty,
+                                'is-danger'  :  !productForm.get('category').valid
+                              }">
+            </div>
+            <p class="error is-danger" [hidden]="productForm.get('category').valid">
+              Category is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--image-->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+        <label class="label">Image</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text"
+                     formControlName="image"
+                     [ngClass]="{
+                                'is-success' :  productForm.get('image').valid &&  productForm.get('image').dirty,
+                                'is-danger'  :  !productForm.get('image').valid
+                              }">
+            </div>
+            <p class="error is-danger" [hidden]="productForm.get('image').valid">
+              Name is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--active-->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+        <label class="label">Active</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+
+              <input class="input" type="radio"
+                     value="true"
+                     formControlName="active"
+                     [ngClass]="{
+                                'is-success' :  productForm.get('active').valid &&  productForm.get('active').dirty,
+                                'is-danger'  :  !productForm.get('active').valid
+                              }">Yes
+              <input class="input" type="radio"
+                     value="false"
+                     formControlName="active"
+                     [ngClass]="{
+                                'is-success' :  productForm.get('active').valid &&  productForm.get('active').dirty,
+                                'is-danger'  :  !productForm.get('active').valid
+                              }">No
+
+            </div>
+            <p class="error is-danger" [hidden]="productForm.get('active').valid">
+              Active status is required.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <button class="button is-success" (click)="submitForm()">Submit product</button>
+
+    </form>
+  </div>
+
+
+
+</div>
+<!--<button class="button is-success" (click)="startNewCatalogProduct()" *ngIf="!product" >Start New product Listing</button>-->

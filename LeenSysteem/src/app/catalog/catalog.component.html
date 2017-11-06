@@ -66,7 +66,7 @@
             </tr>
             </tbody>
           </table>
-        <button (click)="openBasket()" type="button" class="btn btn-primary btn-sm mr-3 basket-button">Reserve</button>
+        <button [disabled]="!basketList.length" (click)="openBasket()" type="button" class="btn btn-primary btn-sm mr-3 basket-button">Reserve</button>
       </div>
     </div>
     </div>

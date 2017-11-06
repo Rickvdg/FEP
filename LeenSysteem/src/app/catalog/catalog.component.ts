@@ -174,7 +174,6 @@ export class BasketConfirmationDialog {
     this.dialogRef.close();
   }
 
-
   reserveBasket() {
 
   }

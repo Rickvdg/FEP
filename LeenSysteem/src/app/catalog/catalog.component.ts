@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, NativeDateAdapter, MatDatepicker} from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-catalog',
@@ -144,6 +145,7 @@ export class BasketQtyDialog {
   templateUrl: 'basket-confirmation-dialog.html',
   styleUrls: ['basket-confirmation-dialog.css']
 })
+
 export class BasketConfirmationDialog {
 
   basketList: Array<any> = [];
@@ -154,9 +156,14 @@ export class BasketConfirmationDialog {
     return day !== 0 && day !== 6;
   }
 
-  constructor( public dialogRef: MatDialogRef<BasketQtyDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
+  constructor( public dialogRef: MatDialogRef<BasketQtyDialog>, @Inject(MAT_DIALOG_DATA,)
+  public data: any) {  }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  reserveBasket() {
+
   }
 }

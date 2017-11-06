@@ -7,7 +7,7 @@
   </mat-form-field>
   <div>
     <h4 class="mt-0">Submission date:</h4>
-    <div>{{ getDate() | date : 'dd/MM/yyyy' }}</div>
+    {{ getDate() | date : 'dd/MM/yyyy' }}
   </div>
 </div>
 
@@ -21,7 +21,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of basketList">
+      <tr *ngFor="let item of data.test">
         <td>{{ item[0] }}</td>
         <td>{{ item[1] }}</td>
       </tr>

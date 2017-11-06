@@ -23,16 +23,6 @@ export class CatalogComponent implements OnInit {
   // Max qty of selected product
   maxQty: number = 0;
 
-  openBasket(): void {
-    let dialogRef = this.dialog.open(BasketConfirmationDialog, {
-      width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-
   constructor(public database: AngularFireDatabase,
               public dialog: MatDialog, dateAdapter: DateAdapter<NativeDateAdapter>) {
     this.productList = this.database.list('/catalog-products');
@@ -72,6 +62,19 @@ export class CatalogComponent implements OnInit {
       this.basketList.push(productToAdd);
     }
   }
+
+  openBasket(){
+
+    let dialogRef = this.dialog.open(BasketConfirmationDialog, {
+      width: '500px',
+      data : { test : this.basketList}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   /**
    * Open the Qty dialog for selecting the qty of a product to add to the basketList.
    */
@@ -131,9 +134,11 @@ export class BasketQtyDialog {
    * Min = 1.
    * Required = true.
    */
+
   minMaxControl = new FormControl("", [ Validators.max(this.data.maxQty), Validators.min(1), Validators.required]);
 
   constructor( public dialogRef: MatDialogRef<BasketQtyDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
+
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -157,6 +162,7 @@ export class BasketConfirmationDialog {
     }
     catch (E) {
       console.log('no date yet');
+      console.log('');
     }
   }
 
@@ -174,7 +180,19 @@ export class BasketConfirmationDialog {
     this.dialogRef.close();
   }
 
-  reserveBasket() {
-
+  reserveBasket(inleverdatum: string, uitleendatum: string, status: string) {
+    let aRef = this.items.push({});
+    console.log(aRef.key);
+    aRef.set({
+      inleverdatum: inleverdatum,
+      uitleendatum: uitleendatum,
+      lener: this.auth.getDisplayName(),
+      lenermail: this.auth.getEmail(),
+      status: status,
+      producten: {
+        1: {id: 'Arduino Nano', aantal: 2},
+        2: {id: 'Arduino Uno', aantal: 1}
+      }
+    })
   }
 }

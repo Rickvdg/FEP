@@ -69,12 +69,6 @@ export const firebaseConfig = {
     MatSnackBarModule
   ],
   entryComponents: [
-    BasketQtyDialog,
-    MatButtonModule, MatCheckboxModule, MatDialogModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    MatDatepickerModule, MatNativeDateModule,
-  ],
-  entryComponents: [
     BasketQtyDialog
   ],
   providers: [

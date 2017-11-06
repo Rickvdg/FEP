@@ -24,9 +24,9 @@
         <!--</thead>-->
         <!--<tbody>-->
         <!--<tr *ngFor="let products of productList | async">-->
-          <!--<td *ngIf="auth.getRol() != 'user'">{{ products.$key }}</td>-->
-          <!--<td *ngIf="auth.getRol() != 'user'">{{ products.productnumber }}</td>-->
-          <!--<td>-->
+          <!--<td *ngIf="auth.getRol() != 'user' && products.active == 'true'">{{ products.$key }}</td>-->
+          <!--<td *ngIf="auth.getRol() != 'user' && products.active == 'true'">{{ products.productnumber }}</td>-->
+          <!--<td *ngIf="products.active == 'true'">-->
             <!--<div class="media">-->
               <!--<img class="d-flex mr-3 media-image" src="{{ products.image }}" alt="Product Image">-->
               <!--<div class="media-body">-->
@@ -37,8 +37,8 @@
             <!--<span class="badge badge-danger"> {{ products.category }} </span>-->
             <!--<span class="badge badge-info"> {{ products.tags }} </span>-->
           <!--</td >-->
-          <!--<td>{{ products.qty }}</td>-->
-          <!--<td>-->
+          <!--<td *ngIf="products.active == 'true'">{{ products.qty }}</td>-->
+          <!--<td *ngIf="products.active == 'true'">-->
             <!--<button type="button" class="btn btn-primary btn-sm btn-block" (click)="openQtyDialog(products.name, products.qty)" *ngIf="auth.getRol() == 'user'">Add</button>-->
             <!--<button type="button" class="btn btn-warning btn-sm btn-block" *ngIf="auth.getRol() != 'user'">Edit</button>-->
             <!--<button type="button" class="btn btn-danger btn-sm btn-block" *ngIf="auth.getRol() != 'user'">Delete</button>-->
@@ -103,9 +103,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let products of productList | async">
-              <td>{{ products.$key }}</td>
-              <td>{{ products.productnumber }}</td>
-              <td>
+              <td *ngIf="products.active == 'true'">{{ products.$key }}</td>
+              <td *ngIf="products.active == 'true'">{{ products.productnumber }}</td>
+              <td *ngIf="products.active == 'true'">
                 <div class="media">
                   <img class="d-flex mr-3 media-image" src="{{ products.image }}" alt="Product Image">
                   <div class="media-body">
@@ -116,8 +116,8 @@
                 <span class="badge badge-danger"> {{ products.category }} </span>
                 <span class="badge badge-info"> {{ products.tags }} </span>
               </td >
-              <td>{{ products.qty }}</td>
-              <td>
+              <td *ngIf="products.active == 'true'">{{ products.qty }}</td>
+              <td *ngIf="products.active == 'true'">
                 <button type="button" class="btn btn-primary btn-sm btn-block" (click)="openQtyDialog(products.name, products.qty)">Add</button>
                 <button type="button" class="btn btn-warning btn-sm btn-block" >Edit</button>
                 <button type="button" class="btn btn-danger btn-sm btn-block" >Delete</button>

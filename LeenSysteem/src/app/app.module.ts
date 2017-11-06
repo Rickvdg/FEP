@@ -14,7 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from "./authentication.service";
 import { AuthGuardService } from './auth-guard.service';
-import {BasketConfirmationDialog, CatalogComponent} from './catalog/catalog.component';
+import { BasketConfirmationDialog, BasketQtyDialog, CatalogComponent} from './catalog/catalog.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import {AngularFireModule} from "angularfire2";
 
@@ -43,7 +43,8 @@ export const firebaseConfig = {
     LoginComponent,
     CatalogComponent,
     ReservationsComponent,
-    BasketConfirmationDialog
+    BasketConfirmationDialog,
+    BasketQtyDialog,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,8 @@ export const firebaseConfig = {
     FormsModule, ReactiveFormsModule
   ],
   entryComponents: [
-    BasketConfirmationDialog
+    BasketConfirmationDialog,
+    BasketQtyDialog,
   ],
   providers: [
     AuthenticationService,

@@ -1,0 +1,27 @@
+<div class="card bg-light pb-3">
+
+  <div class="card-header font-weight-bold">Add {{ data.productName }} to basket</div>
+  <div class="card-body pt-0 pl-0 pb-0 pr-0">
+    <div mat-dialog-content>
+      <form>
+
+        <mat-form-field class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Qty:</span>
+          <input matInput placeholder="Qty:" [(ngModel)]="data.qty" type="number" id="qty" name="qty" [formControl]="minMaxControl" class="form-control" aria-label="Qty" aria-describedby="basic-addon1">
+        </mat-form-field>
+
+        <div *ngIf="minMaxControl.invalid" class="alert alert-danger error-message" role="alert">
+          Please select a number between 0 and {{ data.maxQty }}
+        </div>
+
+      </form>
+    </div>
+    <div mat-dialog-actions class="minmax-button">
+      <button type="button" (click)="onNoClick()"  class="btn but-sm btn-secondary">Cancel</button>
+      <button [disabled]="minMaxControl.invalid" type="button" [mat-dialog-close]="data.qty" class="btn but-sm btn-primary">Ok</button>
+    </div>
+
+
+
+  </div>
+</div>

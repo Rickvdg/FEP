@@ -1,0 +1,11 @@
+.good {
+  background-color: rgba(130, 255, 0,0.5);
+}
+
+.almost {
+  background-color: rgba(255, 130, 0, 0.5);
+}
+
+.late {
+  background-color: rgba(255, 0, 0, 0.5);
+}

@@ -1,4 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
-/LeenSysteem/e2e/
 /LeenSysteem/node_modules/
 /node_modules/
+/.angular-cli.json
+.idea/
+/LeenSysteem/e2e/
+/LeenSysteem/.idea/
+LeenSysteem/.idea/LeenSysteem.iml
+LeenSysteem/.idea/workspace.xml
+LeenSysteem/e2e/tsconfig.e2e.json

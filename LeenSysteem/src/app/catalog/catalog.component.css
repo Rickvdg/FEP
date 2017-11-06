@@ -1,0 +1,37 @@
+.media-image{
+  width: 100px;
+  height: 100px;
+}
+
+.basket-min-height{
+  min-height: 400px;
+}
+
+.basket-button{
+  position: absolute;
+  right: -5px;
+  bottom: 10px;
+}
+
+.minmax-button{
+  width: 200px;
+  float: right;
+}
+
+.minmax-button button{
+  margin: 15px 0px 5px 5px;
+  width: 45%;
+  float: right;
+}
+
+.input-group{
+  width: 80%;
+  margin: 25px auto 0 auto;
+  position: relative;
+}
+
+.error-message{
+  width: 80%;
+  margin: 10px auto 0 auto;
+  position: relative;
+}

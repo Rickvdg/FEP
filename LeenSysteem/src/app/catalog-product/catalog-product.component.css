@@ -1,0 +1,29 @@
+.error-message{
+  width: 80%;
+  margin: 10px auto 0 auto;
+  position: relative;
+}
+
+.input-group{
+  width: 80%;
+  margin: 10px auto 0 auto;
+  position: relative;
+}
+
+.buttons{
+  float: right;
+}
+
+.buttoncontainer{
+  width: 80%;
+  margin: 10px auto 0 auto;
+  position: relative;
+}
+
+input {
+  width: 100%;
+}
+
+textarea {
+  width: 100%;
+}

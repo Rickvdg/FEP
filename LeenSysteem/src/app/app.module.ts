@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginModule } from './login/login.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -15,8 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from "./authentication.service";
 import { AuthGuardService } from './auth-guard.service';
-import { ProductService} from "./product/product.service";
-import { CatalogComponent } from './catalog/catalog.component';
+import { CatalogComponent, BasketQtyDialog } from './catalog/catalog.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import {AngularFireModule} from "angularfire2";
 import { CatalogProductComponent } from './catalog-product/catalog-product.component';
@@ -26,7 +25,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuardService]},
   { path: 'reservations', component: ReservationsComponent, canActivate: [AuthGuardService]},
-  { path: 'products', component: CatalogProductComponent},
+  { path: 'products', component: CatalogProductComponent, canActivate: [AuthGuardService]},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ]
@@ -47,7 +46,8 @@ export const firebaseConfig = {
     LoginComponent,
     CatalogComponent,
     ReservationsComponent,
-    CatalogProductComponent
+    CatalogProductComponent,
+    BasketQtyDialog
   ],
   imports: [
     BrowserModule,
@@ -58,13 +58,16 @@ export const firebaseConfig = {
     NgbModule.forRoot(),
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
-    MatButtonModule, MatCheckboxModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    MatButtonModule, MatCheckboxModule, MatDialogModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    MatDatepickerModule, MatNativeDateModule,
+  ],
+  entryComponents: [
+    BasketQtyDialog
   ],
   providers: [
     AuthenticationService,
     AuthGuardService,
-    ProductService
   ],
   bootstrap: [AppComponent]
 })

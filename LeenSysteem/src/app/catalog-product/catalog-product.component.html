@@ -1,208 +1,121 @@
-<div class="content columns" >
-  <div class="column is-6">
-
-    <h3>Form Values</h3>
-    <p>Form value: <br> {{ productForm.value | json }}</p>
-    <p>Form status: {{ productForm.status | json }}</p>
-  </div>
-
-
-  <div class="column">
     <form  [formGroup]="productForm" novalidate>
 
-      <h1>Add Product</h1>
+      <h4>Add Product</h4>
 
       <!--name-->
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-        <label class="label">Name</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <input class="input" type="text"
-                     formControlName="name"
-                     [ngClass]="{
-                                'is-success' :  productForm.get('name').valid &&  productForm.get('name').dirty,
-                                'is-danger'  :  !productForm.get('name').valid
-                              }">
-            </div>
-            <p class="error is-danger" [hidden]="productForm.get('name').valid">
-              Name is required
-            </p>
-          </div>
-        </div>
+      <div>
+      <mat-form-field class="input-group">
+        <span class="input-group-addon" id="basic-addon1">Name:</span>
+        <input matInput placeholder="name" formControlName="name" type="text"  aria-describedby="basic-addon1">
+
+      </mat-form-field>
+      </div>
+      <div *ngIf="productForm.get('name').invalid" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('name').valid || !productForm.get('name').dirty">
+          Name is required.
       </div>
 
       <!--quantity-->
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Quantity</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <input class="input" type="number"
-                     formControlName="qty"
-                     [ngClass]="{
-                               'is-success' :  productForm.get('qty').valid &&  productForm.get('qty').dirty,
-                               'is-danger'  :  !productForm.get('qty').valid
-                             }">
-            </div>
-            <p class="error is-danger" [hidden]="productForm.get('qty').valid">
-              Quantity is required and can't be negative.
-            </p>
-          </div>
-        </div>
+      <div>
+        <mat-form-field class="input-group">
+          <span class="input-group-addon" id="basic-addon2">Quantity:</span>
+          <input matInput placeholder="quantity" formControlName="qty" type="number" min="0" pattern="[0-9]"  aria-describedby="basic-addon2">
+
+        </mat-form-field>
+      </div>
+      <div *ngIf="productForm.get('qty').hasError('required')" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('qty').valid || !productForm.get('qty').dirty">
+        Quantity is required.
+      </div>
+      <div *ngIf="productForm.get('qty').hasError('pattern') && !productForm.get('qty').hasError('min')" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('qty').valid || !productForm.get('qty').dirty">
+        Quantity must be a non-decimal number.
+      </div>
+      <div *ngIf="productForm.get('qty').hasError('min')" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('qty').valid || !productForm.get('qty').dirty">
+        Quantity must be positive.
       </div>
 
+
       <!--product number-->
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Product Number</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <input class="input" type="text"
-                     formControlName="productnumber"
-                     [ngClass]="{
-                               'is-success' :  productForm.get('productnumber').valid &&  productForm.get('productnumber').dirty,
-                               'is-danger'  :  !productForm.get('productnumber').valid
-                             }">
-            </div>
-            <p class="error is-danger" [hidden]="productForm.get('productnumber').valid">
-              Productnumber is required
-            </p>
-          </div>
-        </div>
+      <div>
+        <mat-form-field class="input-group">
+          <span class="input-group-addon" id="basic-addon3">Product number:</span>
+          <input matInput placeholder="product number" formControlName="productnumber" type="text"  aria-describedby="basic-addon3">
+
+        </mat-form-field>
+      </div>
+      <div *ngIf="productForm.get('productnumber').invalid" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('productnumber').valid || !productForm.get('productnumber').dirty">
+        Product number is required.
       </div>
 
       <!--description-->
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Description</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <textarea class="textarea"
-                        formControlName="description"
-                        [ngClass]="{
-                               'is-success' :  productForm.get('description').valid &&  productForm.get('description').dirty,
-                               'is-danger'  :  !productForm.get('description').valid
-                             }">
-              </textarea>
-              <p class="error" [hidden]="productForm.get('description').valid">Content is not valid</p>
-            </div>
-          </div>
-        </div>
+      <div>
+        <mat-form-field class="input-group">
+          <span class="input-group-addon" id="basic-addon4">Description:</span>
+          <textarea  matInput placeholder="description" formControlName="description" type="text"  aria-describedby="basic-addon4"></textarea>
+
+        </mat-form-field>
+      </div>
+      <div *ngIf="productForm.get('description').invalid" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('description').valid || !productForm.get('description').dirty">
+        Name is required.
       </div>
 
       <!--tags-->
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-        <label class="label">Tags</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <input class="input" type="text"
-                     formControlName="tags"
-                     [ngClass]="{
-                                'is-success' :  productForm.get('tags').valid &&  productForm.get('tags').dirty,
-                                'is-danger'  :  !productForm.get('tags').valid
-                              }">
-            </div>
-            <p class="error is-danger" [hidden]="productForm.get('tags').valid">
-              Tags are required
-            </p>
-          </div>
-        </div>
+      <div>
+        <mat-form-field class="input-group">
+          <span class="input-group-addon" id="basic-addon5">Tags:</span>
+          <input matInput placeholder="tag, tag, tag" formControlName="tags" type="text"  aria-describedby="basic-addon5">
+        </mat-form-field>
+      </div>
+      <div *ngIf="productForm.get('tags').invalid" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('tags').valid || !productForm.get('tags').dirty">
+        Tags are required.
       </div>
 
       <!--category-->
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-        <label class="label">Category</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <input class="input" type="text"
-                     formControlName="category"
-                     [ngClass]="{
-                                'is-success' :  productForm.get('category').valid &&  productForm.get('category').dirty,
-                                'is-danger'  :  !productForm.get('category').valid
-                              }">
-            </div>
-            <p class="error is-danger" [hidden]="productForm.get('category').valid">
-              Category is required
-            </p>
-          </div>
-        </div>
+      <div>
+        <mat-form-field class="input-group">
+          <span class="input-group-addon" id="basic-addon6">Category:</span>
+          <input matInput placeholder="category" formControlName="category" type="text"  aria-describedby="basic-addon6">
+
+        </mat-form-field>
+      </div>
+      <div *ngIf="productForm.get('category').invalid" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('category').valid || !productForm.get('category').dirty">
+        Category is required.
       </div>
 
       <!--image-->
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-        <label class="label">Image</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <input class="input" type="text"
-                     formControlName="image"
-                     [ngClass]="{
-                                'is-success' :  productForm.get('image').valid &&  productForm.get('image').dirty,
-                                'is-danger'  :  !productForm.get('image').valid
-                              }">
-            </div>
-            <p class="error is-danger" [hidden]="productForm.get('image').valid">
-              Name is required
-            </p>
-          </div>
-        </div>
+      <div>
+        <mat-form-field class="input-group">
+          <span class="input-group-addon" id="basic-addon7">Image:</span>
+          <input matInput placeholder="image link" formControlName="image" type="text"  aria-describedby="basic-addon7">
+
+        </mat-form-field>
+      </div>
+      <div *ngIf="productForm.get('image').invalid" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('image').valid || !productForm.get('image').dirty">
+        Image is required.
       </div>
 
       <!--active-->
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-        <label class="label">Active</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-
-              <input class="input" type="radio"
-                     value="true"
-                     formControlName="active"
-                     [ngClass]="{
-                                'is-success' :  productForm.get('active').valid &&  productForm.get('active').dirty,
-                                'is-danger'  :  !productForm.get('active').valid
-                              }">Yes
-              <input class="input" type="radio"
-                     value="false"
-                     formControlName="active"
-                     [ngClass]="{
-                                'is-success' :  productForm.get('active').valid &&  productForm.get('active').dirty,
-                                'is-danger'  :  !productForm.get('active').valid
-                              }">No
-
-            </div>
-            <p class="error is-danger" [hidden]="productForm.get('active').valid">
-              Active status is required.
-            </p>
-          </div>
-        </div>
+      <div>
+        <mat-form-field class="input-group">
+          <span class="input-group-addon" id="basic-addon8">Active:</span>
+          <input type="radio"
+                 value="true"
+                 [checked]="true"
+                 formControlName="active"
+                 id="isActive"
+                 ><label for="isActive">Yes</label>
+          <input type="radio"
+                 value="false"
+                 formControlName="active"
+                 id="isInactive"
+                 ><label for="isInactive">No</label>
+        </mat-form-field>
       </div>
 
-      <button class="button is-success" (click)="submitForm()">Submit product</button>
-
+      <!--close and submit buttons-->
+      <div class="buttoncontainer">
+      <div class="buttons">
+        <button class="btn but-sm btn-secondary" (click)="closeDialog()">Cancel</button>
+        <button [disabled]="productForm.invalid" class="btn but-sm btn-primary" (click)="submitForm()">Add product</button>
+      </div>
+      </div>
     </form>
-  </div>
 
-
-
-</div>
-<!--<button class="button is-success" (click)="startNewCatalogProduct()" *ngIf="!product" >Start New product Listing</button>-->

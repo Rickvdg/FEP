@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, NativeDateAdapter, MatDatepicker} from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {AuthenticationService} from "../authentication.service";
@@ -147,8 +147,18 @@ export class BasketQtyDialog {
 })
 
 export class BasketConfirmationDialog {
+  datex: Date;
 
-  basketList: Array<any> = [];
+  getDate() {
+    try {
+      let yourDate = new Date(this.datex.getTime() + (1000 * 60 * 60 * 24 * 7));
+
+      return yourDate;
+    }
+    catch (E) {
+      console.log('no date yet');
+    }
+  }
 
   minDate = new Date();
   myFilter = (d: Date): boolean => {
@@ -156,12 +166,14 @@ export class BasketConfirmationDialog {
     return day !== 0 && day !== 6;
   }
 
-  constructor( public dialogRef: MatDialogRef<BasketQtyDialog>, @Inject(MAT_DIALOG_DATA,)
-  public data: any) {  }
+  constructor( public dialogRef: MatDialogRef<BasketConfirmationDialog>, @Inject(MAT_DIALOG_DATA,)
+  public database: AngularFireDatabase,
+  public auth: AuthenticationService) {  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
 
   reserveBasket() {
 

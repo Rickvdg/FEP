@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginModule } from './login/login.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
-import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatInputModule,} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -53,7 +53,7 @@ export const firebaseConfig = {
     NgbModule.forRoot(),
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
-    MatButtonModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatInputModule,
+    MatButtonModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule,
     AngularFireModule.initializeApp(firebaseConfig),
     FormsModule, ReactiveFormsModule
   ],

@@ -1,19 +1,17 @@
 <div>
   <h4 class="mt-0">Reservation date:</h4>
   <mat-form-field>
-    <input matInput [(ngModel)]="datex" [min]="minDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date">
+    <input matInput [(ngModel)]="datex" [min]="minDate" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" placeholder="Choose a date" id="s_date" name="s_date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <div>
     <h4 class="mt-0">Submission date:</h4>
-    <div>{{ datex | date:'d-M-y' }}</div>
+    <div>{{ getDate() | date : 'dd/MM/yyyy' }}</div>
   </div>
 </div>
 
-
 <div class="card bg-light basket-min-height pb-5">
-  <div class="card-header font-weight-bold">Basket</div>
   <div class="card-body pt-0 pl-0 pb-0 pr-0">
     <table class="table table-hover mb-0">
       <thead>

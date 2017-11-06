@@ -1,9 +1,10 @@
 ///<reference path="../../../node_modules/@angular/forms/src/validators.d.ts"/>
 import { Component, OnInit, Inject } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { CatalogProductComponent } from "../catalog-product/catalog-product.component";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, NativeDateAdapter, MatDatepicker} from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-catalog',
@@ -24,8 +25,10 @@ export class CatalogComponent implements OnInit {
   // Max qty of selected product
   maxQty: number = 0;
 
-  constructor( public database: AngularFireDatabase, public dialog: MatDialog) {
+  constructor(public database: AngularFireDatabase,
+              public dialog: MatDialog, dateAdapter: DateAdapter<NativeDateAdapter>) {
     this.productList = this.database.list('/catalog-products');
+    dateAdapter.setLocale('nl-NL');
   }
 
   ngOnInit() {
@@ -103,8 +106,7 @@ export class CatalogComponent implements OnInit {
       }
     });
   }
-
-  /**
+    /**
    * Defines the max qty of the selected product that can be ordered.
    * It looks at the max qty of the selected product in the database
    * and if the selected product is already in the basketList.
@@ -119,6 +121,18 @@ export class CatalogComponent implements OnInit {
       }
     }
     return maxQty;
+  }
+
+  openBasket(){
+
+    let dialogRef = this.dialog.open(BasketConfirmationDialog, {
+      width: '500px',
+      data : { test : this.basketList}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }
 
@@ -140,5 +154,62 @@ export class BasketQtyDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'basket-confirmation-dialog',
+  templateUrl: 'basket-confirmation-dialog.html',
+  styleUrls: ['basket-confirmation-dialog.css']
+})
+
+export class BasketConfirmationDialog {
+  datex: Date;
+  items: FirebaseListObservable<any[]>;
+  status: string;
+
+  /*getDate() {
+    try {
+      let yourDate = new Date(this.datex.getTime() + (1000 * 60 * 60 * 24 * 7));
+
+      return yourDate;
+    }
+    catch (E) {
+      console.log('no date yet');
+      console.log('');
+    }
+  }*/
+
+  minDate = new Date();
+  myFilter = (d: Date): boolean => {
+    const day = d.getDay();
+    return day !== 0 && day !== 6;
+  }
+
+  constructor( public dialogRef: MatDialogRef<BasketConfirmationDialog>, @Inject(MAT_DIALOG_DATA,)
+               public database: AngularFireDatabase,
+               public auth: AuthenticationService) {  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  reserveBasket(inleverdatum: string, uitleendatum: string, status: string) {
+    let aRef = this.items.push({});
+    console.log(aRef.key);
+    console.log(inleverdatum);
+    console.log(uitleendatum);
+    console.log(aRef.key);
+    aRef.set({
+      inleverdatum: inleverdatum,
+      uitleendatum: uitleendatum,
+      lener: this.auth.getDisplayName(),
+      lenermail: this.auth.getEmail(),
+      status: status,
+      producten: {
+        1: {id: 'Arduino Nano', aantal: 2},
+        2: {id: 'Arduino Uno', aantal: 1}
+      }
+    })
   }
 }

@@ -50,7 +50,7 @@ export class CatalogProductComponent implements OnInit {
       active: ['true'],
       category: [, Validators.required],
       description: [, Validators.required],
-      image: [, Validators.required],
+      image: [, ],
       name: [, Validators.required],
       productnumber: [, Validators.required],
       qty: [, [Validators.min(0), Validators.required, Validators.pattern('^\\d+$')]],

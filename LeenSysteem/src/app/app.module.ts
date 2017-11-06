@@ -15,8 +15,9 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from "./authentication.service";
 import { AuthGuardService } from './auth-guard.service';
+import { CatalogComponent, BasketQtyDialog } from './catalog/catalog.component';
 import { ReservationsComponent, ConfirmDialog } from './reservations/reservations.component';
-import { BasketQtyDialog, CatalogComponent } from './catalog/catalog.component';
+import { CatalogProductComponent } from './catalog-product/catalog-product.component';
 import { CustomDatePipe } from './reservations/custom-date.pipe';
 
 const appRoutes: Routes = [
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuardService]},
   { path: 'reservations', component: ReservationsComponent, canActivate: [AuthGuardService]},
+  { path: 'products', component: CatalogProductComponent, canActivate: [AuthGuardService]},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
@@ -46,19 +48,19 @@ export const firebaseConfig = {
     ReservationsComponent,
     CustomDatePipe,
     BasketQtyDialog,
-    ConfirmDialog
+    ConfirmDialog,
+    CatalogProductComponent,
   ],
   imports: [
-    FormsModule,
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, {enableTracing: true}),
     LoginModule,
     NgbModule.forRoot(),
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    FormsModule,
-    ReactiveFormsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -72,7 +74,7 @@ export const firebaseConfig = {
   ],
   providers: [
     AuthenticationService,
-    AuthGuardService
+    AuthGuardService,
   ],
   bootstrap: [AppComponent]
 })

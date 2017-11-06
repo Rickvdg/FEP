@@ -1,6 +1,7 @@
 ///<reference path="../../../node_modules/@angular/forms/src/validators.d.ts"/>
 import { Component, OnInit, Inject } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { CatalogProductComponent } from "../catalog-product/catalog-product.component";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {AuthenticationService} from "../authentication.service";
@@ -29,6 +30,16 @@ export class CatalogComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+  /**
+   * Opens a dialog to add a new product to the database.
+   */
+  openCreateProductDialog() {
+    let dialogRef = this.dialog.open(CatalogProductComponent, {
+      width: '500px',
+    });
   }
 
   /**

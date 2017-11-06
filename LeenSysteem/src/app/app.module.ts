@@ -4,9 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginModule } from './login/login.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
-import { MatButtonModule, MatCheckboxModule, MatSnackBarModule, MatSelectModule } from '@angular/material';
+import { AngularFireModule } from "angularfire2";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSnackBarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from "./not-found/not-found.component";
@@ -14,21 +15,18 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from "./authentication.service";
 import { AuthGuardService } from './auth-guard.service';
-import { CatalogComponent } from './catalog/catalog.component';
 import { ReservationsComponent } from './reservations/reservations.component';
-import { AngularFireModule } from "angularfire2";
+import { BasketQtyDialog, CatalogComponent } from './catalog/catalog.component';
 import { CustomDatePipe } from './reservations/custom-date.pipe';
-import { AdminComponent } from './admin/admin.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'catalog', component: CatalogComponent, canActivate: [AuthGuardService]},
   { path: 'reservations', component: ReservationsComponent, canActivate: [AuthGuardService]},
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
-]
+];
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAiOOWusTDxJCv8IdUn6qpv8_fN2GJM3yE",
@@ -47,7 +45,7 @@ export const firebaseConfig = {
     CatalogComponent,
     ReservationsComponent,
     CustomDatePipe,
-    AdminComponent
+    BasketQtyDialog,
   ],
   imports: [
     FormsModule,
@@ -57,8 +55,18 @@ export const firebaseConfig = {
     NgbModule.forRoot(),
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
-    MatButtonModule, MatCheckboxModule, MatSnackBarModule, MatSelectModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule
+  ],
+  entryComponents: [
+    BasketQtyDialog
   ],
   providers: [
     AuthenticationService,

@@ -24,7 +24,7 @@
         <!--</thead>-->
         <!--<tbody>-->
         <!--<tr *ngFor="let products of productList | async">-->
-          <!--<td *ngIf="auth.getRol() != 'user'">{{ products.id }}</td>-->
+          <!--<td *ngIf="auth.getRol() != 'user'">{{ products.$key }}</td>-->
           <!--<td *ngIf="auth.getRol() != 'user'">{{ products.productnumber }}</td>-->
           <!--<td>-->
             <!--<div class="media">-->
@@ -103,7 +103,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let products of productList | async">
-              <td>{{ products.id }}</td>
+              <td>{{ products.$key }}</td>
               <td>{{ products.productnumber }}</td>
               <td>
                 <div class="media">

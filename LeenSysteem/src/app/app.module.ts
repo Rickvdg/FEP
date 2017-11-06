@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from "./authentication.service";
 import { AuthGuardService } from './auth-guard.service';
-import { ReservationsComponent } from './reservations/reservations.component';
+import { ReservationsComponent, ConfirmDialog } from './reservations/reservations.component';
 import { BasketQtyDialog, CatalogComponent } from './catalog/catalog.component';
 import { CustomDatePipe } from './reservations/custom-date.pipe';
 
@@ -46,6 +46,7 @@ export const firebaseConfig = {
     ReservationsComponent,
     CustomDatePipe,
     BasketQtyDialog,
+    ConfirmDialog
   ],
   imports: [
     FormsModule,
@@ -66,7 +67,8 @@ export const firebaseConfig = {
     MatSnackBarModule
   ],
   entryComponents: [
-    BasketQtyDialog
+    BasketQtyDialog,
+    ConfirmDialog
   ],
   providers: [
     AuthenticationService,

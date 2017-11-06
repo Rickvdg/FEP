@@ -24,7 +24,7 @@
       <td>{{item.status}}</td>
       <td><span *ngFor="let product of item.producten"><li *ngIf="product != null">{{getProduct(product.id)}}: {{product.aantal}}x</li></span></td>
       <td>
-        <button *ngIf="item.status == 'gereserveerd'" mat-raised-button color="primary" (click)="uitlenen(item.$key, 'uitgeleend')">Uitlenen</button>
+        <button *ngIf="item.status == 'gereserveerd'" mat-raised-button color="primary" (click)="openDialog(item.$key, 'uitgeleend')">Uitlenen</button>
       </td>
     </tr>
     </tbody>
@@ -55,7 +55,7 @@
       <td>{{item.status}}</td>
       <td><span *ngFor="let product of item.producten"><li *ngIf="product != null">{{getProduct(product.id)}}: {{product.aantal}}x</li></span></td>
       <td>
-        <button *ngIf="item.status == 'uitgeleend'" mat-raised-button color="primary" (click)="uitlenen(item.$key, 'ingeleverd')">Inleveren</button>
+        <button *ngIf="item.status == 'uitgeleend'" mat-raised-button color="primary" (click)="openDialog(item.$key, 'ingeleverd')">Inleveren</button>
       </td>
     </tr>
     </tbody>

@@ -1,0 +1,16 @@
+<div class="card bg-light pb-3">
+
+  <div class="card-header font-weight-bold">Weet je zeker dat je dit aan <b><i>{{ data.status }}</i></b> wilt toevoegen?</div>
+  <div class="card-body pt-0 pl-0 pb-0 pr-0 container">
+
+    <div mat-dialog-actions class="minmax-button row">
+      <div class="col text-center">
+        <button type="button" [mat-dialog-close]="true" class="btn but-sm btn-primary">Ok</button>
+      </div>
+      <div class="col text-center">
+        <button type="button" (click)="onNoClick()"  class="btn but-sm btn-secondary">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database-deprecated';
 import {AuthenticationService} from "../authentication.service";
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
-import {MatSnackBar} from "@angular/material";
+import {MatDialogRef, MatSnackBar, MatDialog, MAT_DIALOG_DATA} from "@angular/material";
 
 @Component({
   selector: 'app-reservations',
@@ -15,13 +15,15 @@ export class ReservationsComponent implements OnInit {
   today2: Date = new Date();
   items: FirebaseListObservable<any[]>;
   item: FirebaseObjectObservable<any>;
+  status: string;
 
   name: string = '';
 
   constructor(
     public database: AngularFireDatabase,
     public auth: AuthenticationService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
     this.items = database.list('/leningen-test');
     this.today2 = new Date();
@@ -40,6 +42,27 @@ export class ReservationsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  openDialog(productKey: string, status: string) {
+    let dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '500px',
+      data: { productKey: productKey, status: status }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+      /**
+       * afterClosed() will alway be called, even if user selected cancel.
+       *
+       * Sends result.
+       */
+      console.log(result);
+      if(result == true){
+        this.uitlenen(productKey, status);
+      }
+    });
   }
 
   uitlenen(uid: string, status: string) {
@@ -72,5 +95,20 @@ export class ReservationsComponent implements OnInit {
       this.name = snapshot.val().name;
     });
     return this.name;
+  }
+}
+
+
+@Component({
+  selector: 'confirm-dialog',
+  templateUrl: 'confirm-dialog.html',
+  styleUrls: ['./reservations.component.css']
+})
+export class ConfirmDialog {
+
+  constructor( public dialogRef: MatDialogRef<ConfirmDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

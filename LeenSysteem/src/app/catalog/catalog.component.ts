@@ -3,6 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-catalog',
@@ -23,7 +24,7 @@ export class CatalogComponent implements OnInit {
   // Max qty of selected product
   maxQty: number = 0;
 
-  constructor( public database: AngularFireDatabase, public dialog: MatDialog) {
+  constructor( public database: AngularFireDatabase, public dialog: MatDialog, public auth: AuthenticationService) {
     this.productList = this.database.list('/catalog-products');
   }
 

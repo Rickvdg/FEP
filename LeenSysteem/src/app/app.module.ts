@@ -7,7 +7,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireModule } from "angularfire2";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatSnackBarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from "./not-found/not-found.component";
@@ -62,7 +62,8 @@ export const firebaseConfig = {
     MatCheckboxModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     BasketQtyDialog

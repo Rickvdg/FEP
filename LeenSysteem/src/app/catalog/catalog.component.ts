@@ -35,8 +35,31 @@ export class CatalogComponent implements OnInit {
    * BasketList is an array of tuples.
    */
   addToBasket(qty: number) {
+    var x;
+    for(let i in this.basketList){
+      x = -1;
+
+      /**
+       * If item is already in basketList set x to the array key for later use.
+       */
+      if(this.basketList[i][0] == this.product){
+        qty = qty + this.basketList[i][1];
+        x = +i;
+        break;
+      }
+    }
+
     let productToAdd = [this.product, qty];
-    this.basketList.push(productToAdd);
+
+    /**
+     * If x != -1, thus altered to a array key replace the item
+     * else add it.
+     */
+    if(x != -1){
+      this.basketList.splice(x, 1, productToAdd);
+    }else{
+      this.basketList.push(productToAdd);
+    }
   }
 
   /**
@@ -67,7 +90,6 @@ export class CatalogComponent implements OnInit {
       if(result >= 1 || result <= this.maxQty || result != null){
         this.addToBasket(result);
       }
-
     });
   }
 
@@ -87,7 +109,6 @@ export class CatalogComponent implements OnInit {
     }
     return maxQty;
   }
-
 }
 
 @Component({

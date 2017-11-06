@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginModule } from './login/login.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
-import { MatButtonModule, MatCheckboxModule, MatDialogModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -55,7 +55,7 @@ export const firebaseConfig = {
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule, MatDialogModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule,
   ],
   entryComponents: [
     BasketQtyDialog

@@ -11,51 +11,83 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 
 export class CatalogComponent implements OnInit {
+  // All product from database
   productList: FirebaseListObservable<any[]>;
+
+  // List (of tuples) with all products in basket
   basketList: Array<any> = [];
 
+  // Selected product to add to list
   product: string;
-  qty: number = 0;
-  maxQty: number = 0;
 
-  minMaxControl = new FormControl("", [Validators.max(20), Validators.min(0)]);
+  // Max qty of selected product
+  maxQty: number = 0;
 
   constructor( public database: AngularFireDatabase, public dialog: MatDialog) {
     this.productList = this.database.list('/catalog-products');
-
   }
 
   ngOnInit() {
   }
 
-  addToBasket() {
-    let tuple = [this.product, this.qty];
-    this.basketList.push(tuple);
-    console.log(this.basketList);
+  /**
+   * Adds the selected product to the basketList.
+   * BasketList is an array of tuples.
+   */
+  addToBasket(qty: number) {
+    let productToAdd = [this.product, qty];
+    this.basketList.push(productToAdd);
   }
 
-  openDialog(productName: string, maxQty: number) {
+  /**
+   * Open the Qty dialog for selecting the qty of a product to add to the basketList.
+   */
+  openQtyDialog(productName: string, maxQty: number) {
     this.product = productName;
-    this.qty = 0;
-    this.maxQty = maxQty;
+    this.maxQty = this.defineMaxQty(productName, maxQty);
 
+    /**
+     * Qty dialog with some basic settings and setting the data attribute
+     * Data attribute is required to get minMaxControl FormControl working.
+     */
     let dialogRef = this.dialog.open(BasketQtyDialog, {
       width: '500px',
-      data: { productName: this.product, qty: this.qty, maxQty: this.maxQty}
+      data: { productName: this.product, qty: 0, maxQty: this.maxQty}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.qty = result;
 
-      console.log(this.qty > 0);
-
-      if(this.qty != 0 && this.qty != null){
-        this.addToBasket()
+      /**
+       * afterClosed() will alway be called, even if user selected cancel.
+       * This checks if the result is within the min, max range before calling addToBasket().
+       *
+       * Sends result (which is the selected qty of a product) to addToBasket().
+       */
+      if(result >= 1 || result <= this.maxQty || result != null){
+        this.addToBasket(result);
       }
 
     });
   }
+
+  /**
+   * Defines the max qty of the selected product that can be ordered.
+   * It looks at the max qty of the selected product in the database
+   * and if the selected product is already in the basketList.
+   *
+   * return = maxQty - qty of basketList OR
+   * return = maxQty.
+   */
+  defineMaxQty(productName: string, maxQty: number){
+    for (let product of this.basketList){
+      if(product[0] == productName){
+        maxQty = maxQty - product[1];
+      }
+    }
+    return maxQty;
+  }
+
 }
 
 @Component({
@@ -64,9 +96,13 @@ export class CatalogComponent implements OnInit {
   styleUrls: ['./catalog.component.css']
 })
 export class BasketQtyDialog {
-  minMaxControl = new FormControl("", [ Validators.max(this.data.maxQty),
-                                        Validators.min(1),
-                                        Validators.required]);
+  /**
+   * Validator for the qty selection.
+   * Max = return of defineMaxQty().
+   * Min = 1.
+   * Required = true.
+   */
+  minMaxControl = new FormControl("", [ Validators.max(this.data.maxQty), Validators.min(1), Validators.required]);
 
   constructor( public dialogRef: MatDialogRef<BasketQtyDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
 

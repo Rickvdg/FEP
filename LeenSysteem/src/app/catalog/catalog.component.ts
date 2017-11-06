@@ -13,7 +13,6 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, NativeDateAdapter
 export class CatalogComponent implements OnInit {
   productList: FirebaseListObservable<any[]>;
 
-
   openBasket(): void {
     let dialogRef = this.dialog.open(BasketConfirmationDialog, {
       width: '250px',
@@ -40,21 +39,6 @@ export class CatalogComponent implements OnInit {
   styleUrls: ['basket-confirmation-dialog.css']
 })
 export class BasketConfirmationDialog {
-
-  datex: Date;
-
-  getDate() {
-    try {
-      let yourDate = new Date(this.datex.getTime() + (1000 * 60 * 60 * 24 * 7));
-
-      return yourDate;
-    }
-    catch (E) {
-      console.log('no date yeeeeet');
-    }
-  }
-
-
   @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
   minDate = new Date();
   myFilter = (d: Date): boolean => {

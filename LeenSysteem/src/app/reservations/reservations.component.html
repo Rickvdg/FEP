@@ -1,30 +1,93 @@
 <div class="jumbotron">
-<button mat-raised-button (click)="addLening('22-10-2017','10-10-2017','gereserveerd')">Add reservering test</button>
-
-<table class="table">
-  <thead class="thead-inverse">
-  <tr>
-    <!--<th>#</th>-->
-    <th>Lener</th>
-    <th>Email</th>
-    <th>Status</th>
-    <th>Producten</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let item of items | async">
-    <!--<th scope="row">{{item.$key}}</th>-->
-    <td>{{item.lener}}</td>
-    <td>{{item.lenermail}}</td>
-    <td>{{item.status}}</td>
-    <td><span *ngFor="let product of item.producten"><li *ngIf="product != null">{{getProduct(product.id)}}: {{product.aantal}}x</li></span></td>
-    <!--<td>{{item)}}</td>-->
-    <!--<td>{{item.productid}} : {{item.aantal}}x</td>-->
-    <td>
-      <button *ngIf="item.status == 'gereserveerd'" mat-raised-button color="primary" (click)="uitlenen(item.$key)">Uitlenen</button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+  <!--*ngIf="auth.getRol() == 'admin' || auth.getRol() == 'moderator'"-->
+  <input placeholder="Inleverdatum (dd-MM-yyyy)" maxlength="10" minlength="10" #inleverdatumInput><input placeholder="Uitleendatum (dd-MM-yyyy)" maxlength="10" minlength="10" #uitleendatumInput>
+  <button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" (click)="addLening(inleverdatumInput.value,uitleendatumInput.value,'gereserveerd')">Add reservering test</button>
+  <div  *ngIf="(items | async)?.length > 0">
+  <h2>Reserveringen:</h2>
+  <table class="table">
+    <thead class="thead-inverse">
+    <tr>
+      <!--<th>#</th>-->
+      <th>Lener</th>
+      <th>Uitleendatum</th>
+      <th>Inleverdatum</th>
+      <th>Status</th>
+      <th>Producten</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items | async" [hidden]="filter(item, 'gereserveerd')">
+      <td>{{item.lener}}</td>
+      <td>{{item.uitleendatum}}</td>
+      <td>{{item.inleverdatum}}</td>
+      <td>{{item.status}}</td>
+      <td><span *ngFor="let product of item.producten"><li *ngIf="product != null">{{getProduct(product.id)}}: {{product.aantal}}x</li></span></td>
+      <td>
+        <button *ngIf="item.status == 'gereserveerd'" mat-raised-button color="primary" (click)="uitlenen(item.$key, 'uitgeleend')">Uitlenen</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <h2>Leningen:</h2>
+  <table class="table">
+    <thead class="thead-inverse">
+    <tr>
+      <!--<th>#</th>-->
+      <th>Lener</th>
+      <th>Uitleendatum</th>
+      <th>Inleverdatum</th>
+      <th>Status</th>
+      <th>Producten</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items | async"
+        [hidden]="filter(item, 'uitgeleend')"
+        [class.good]="(item.inleverdatum | customDate | date: 'yyyyMMdd') >= (today | date: 'yyyyMMdd')"
+        [class.almost]="(item.inleverdatum | customDate | date: 'yyyyMMdd') == (today | date: 'yyyyMMdd')"
+        [class.late]="(item.inleverdatum | customDate | date: 'yyyyMMdd') <= (today | date: 'yyyyMMdd')">
+      <td>{{item.lener}}</td>
+      <td>{{item.uitleendatum}}</td>
+      <td>{{item.inleverdatum}}</td>
+      <td>{{item.status}}</td>
+      <td><span *ngFor="let product of item.producten"><li *ngIf="product != null">{{getProduct(product.id)}}: {{product.aantal}}x</li></span></td>
+      <td>
+        <button *ngIf="item.status == 'uitgeleend'" mat-raised-button color="primary" (click)="uitlenen(item.$key, 'ingeleverd')">Inleveren</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <h2>Vorige uitleningen:</h2>
+  <table class="table">
+    <thead class="thead-inverse">
+    <tr>
+      <!--<th>#</th>-->
+      <th>Lener</th>
+      <th>Uitleendatum</th>
+      <th>Inleverdatum</th>
+      <th>Status</th>
+      <th>Producten</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items | async" [hidden]="filter(item, 'ingeleverd')">
+      <td>{{item.lener}}</td>
+      <td>{{item.uitleendatum}}</td>
+      <td>{{item.inleverdatum}}</td>
+      <td>{{item.status}}</td>
+      <td><span *ngFor="let product of item.producten"><li *ngIf="product != null">{{getProduct(product.id)}}: {{product.aantal}}x</li></span></td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+  <div  *ngIf="(items | async)?.length <= 0">
+    <h3>Er zijn geen leningen om te laten zien</h3>
+  </div>
 </div>
+<!--<div class="jumbotron" *ngIf="auth.getRol() == 'user'">-->
+  <!--Je moet een admin zijn om deze content te zien-->
+<!--</div>-->

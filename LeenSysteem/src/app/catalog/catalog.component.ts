@@ -1,6 +1,6 @@
 ///<reference path="../../../node_modules/@angular/forms/src/validators.d.ts"/>
 import { Component, OnInit, Inject } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { CatalogProductComponent } from "../catalog-product/catalog-product.component";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, NativeDateAdapter, MatDatepicker} from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -168,7 +168,7 @@ export class BasketConfirmationDialog {
   items: FirebaseListObservable<any[]>;
   status: string;
 
-  /*getDate() {
+  getDate() {
     try {
       let yourDate = new Date(this.datex.getTime() + (1000 * 60 * 60 * 24 * 7));
 
@@ -178,7 +178,7 @@ export class BasketConfirmationDialog {
       console.log('no date yet');
       console.log('');
     }
-  }*/
+  }
 
   minDate = new Date();
   myFilter = (d: Date): boolean => {
@@ -188,17 +188,21 @@ export class BasketConfirmationDialog {
 
   constructor( public dialogRef: MatDialogRef<BasketConfirmationDialog>, @Inject(MAT_DIALOG_DATA,)
                public database: AngularFireDatabase,
-               public auth: AuthenticationService) {  }
+               public auth: AuthenticationService,
+               public dialog: MatDialog
+  ) {
+    this.items = database.list('/leningen-test');
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   reserveBasket(inleverdatum: string, uitleendatum: string, status: string) {
-    let aRef = this.items.push({});
-    console.log(aRef.key);
     console.log(inleverdatum);
     console.log(uitleendatum);
+    console.log(status);
+    let aRef = this.items.push({});
     console.log(aRef.key);
     aRef.set({
       inleverdatum: inleverdatum,

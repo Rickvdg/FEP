@@ -147,7 +147,7 @@ export class CatalogComponent implements OnInit {
       console.log('The dialog was closed');
 
       if(result != null){
-        console.log(result + "ello");
+        console.log(result);
         this.reserveBasket(result);
       }
 
@@ -155,9 +155,9 @@ export class CatalogComponent implements OnInit {
   }
 
 
-  reserveBasket(result: string) {
-    console.log(result)
-    let stringToDate = new Date(result);
+  reserveBasket(uitleendatum: string) {
+    console.log(uitleendatum)
+    let stringToDate = new Date(uitleendatum);
     console.log(stringToDate)
     let inleverdatum = new Date(stringToDate.getTime() + (1000 * 60 * 60 * 24 * 7));
     console.log(inleverdatum)
@@ -191,7 +191,7 @@ export class CatalogComponent implements OnInit {
     let aRef = this.itemsToReserve.push({});
     aRef.set({
       inleverdatum: '30-11-2017',
-      uitleendatum: result,
+      uitleendatum: uitleendatum,
       lener: this.auth.getDisplayName(),
       lenermail: this.auth.getEmail(),
       status: "gereserveerd",

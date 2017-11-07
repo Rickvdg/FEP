@@ -24,4 +24,4 @@
   </div>
 </div>
 <button type="button" (click)="onNoClick()"  class="btn but-sm btn-secondary">Cancel</button>
-<button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" [mat-dialog-close]="(data.loanDate | date: 'MM-dd-yyyy')">Reserve</button>
+<button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" [mat-dialog-close]="(data.loanDate | date: 'dd-MM-yyyy')">Reserve</button>

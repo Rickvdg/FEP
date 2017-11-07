@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { AngularFireDatabase} from 'angularfire2/database-deprecated';
-import { MatDialogRef, MatRadioButton } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 /**
  * This component is used by the lender to add new products to the database.

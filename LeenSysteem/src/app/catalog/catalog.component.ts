@@ -37,7 +37,7 @@ export class CatalogComponent implements OnInit {
   constructor(public database: AngularFireDatabase, public dialog: MatDialog, dateAdapter: DateAdapter<NativeDateAdapter>, public auth: AuthenticationService) {
     this.productList = this.database.list('/catalog-products');
 
-    dateAdapter.setLocale('nl-NL');
+
 
     ///////////
     this.itemsToReserve = database.list('/leningen-test');
@@ -192,7 +192,7 @@ export class CatalogComponent implements OnInit {
 
     let aRef = this.itemsToReserve.push({});
     aRef.set({
-      inleverdatum: ""+inleverdatum.getDay()+"-"+inleverdatum.getMonth()+"-"+inleverdatum.getFullYear(),
+      inleverdatum: inleverdatum.toLocaleString(),
       uitleendatum: uitleendatum,
       lener: this.auth.getDisplayName(),
       lenermail: this.auth.getEmail(),

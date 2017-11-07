@@ -158,16 +158,12 @@ export class CatalogComponent implements OnInit {
     });
   }
 
-  minDate = new Date();
-  myFilter = (d: Date): boolean => {
-    const day = d.getDay();
-    return day !== 0 && day !== 6;
-  }
 
   reserveBasket(uitleendatum: string) {
 
     let stringToDate = new Date(uitleendatum);
     let inleverdatum = new Date(stringToDate.getTime() + (1000 * 60 * 60 * 24 * 7));
+
 
 
 
@@ -201,7 +197,7 @@ export class CatalogComponent implements OnInit {
       uitleendatum: uitleendatum,
       lener: this.auth.getDisplayName(),
       lenermail: this.auth.getEmail(),
-      status: "Geresereerd",
+      status: "gereserveerd",
       // producten: tempArr
 
       producten: {
@@ -247,6 +243,12 @@ export class BasketQtyDialog {
 export class BasketConfirmationDialog {
 
   constructor( public dialogRef: MatDialogRef<BasketQtyDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
+
+  minDate = new Date();
+  myFilter = (d: Date): boolean => {
+    const day = d.getDay();
+    return day !== 0 && day !== 6;
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

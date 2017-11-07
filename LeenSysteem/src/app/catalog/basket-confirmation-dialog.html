@@ -1,8 +1,9 @@
 <div>
-  <h4 class="mt-0">Reservation date:</h4>
+  <h4 class="mt-0">Reserveringsdatum:</h4>
   <input matInput readonly [(ngModel)]="data.loanDate" [matDatepickerFilter]="myFilter" [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date " #inleverdatumInput>
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
+  <p>Inleverdatum is 1 week na de reserveringsdatum</p>
 </div>
 <div class="card bg-light basket-min-height pb-5">
   <div class="card-body pt-0 pl-0 pb-0 pr-0">
@@ -23,5 +24,4 @@
   </div>
 </div>
 <button type="button" (click)="onNoClick()"  class="btn but-sm btn-secondary">Cancel</button>
-<button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" [mat-dialog-close]="(data.loanDate | date: 'dd-MM-yyyy')">Reserve</button>
-//test
+<button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" [mat-dialog-close]="(data.loanDate | date: 'MM-dd-yyyy')">Reserve</button>

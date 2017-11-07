@@ -37,12 +37,9 @@ export class CatalogComponent implements OnInit {
   constructor(public database: AngularFireDatabase, public dialog: MatDialog, dateAdapter: DateAdapter<NativeDateAdapter>, public auth: AuthenticationService) {
     this.productList = this.database.list('/catalog-products');
 
-
-
     ///////////
     this.itemsToReserve = database.list('/leningen-test');
     //////////
-
 
 
   }
@@ -150,7 +147,7 @@ export class CatalogComponent implements OnInit {
       console.log('The dialog was closed');
 
       if(result != null){
-        console.log(result);
+        console.log(result + "ello");
         this.reserveBasket(result);
       }
 
@@ -158,10 +155,12 @@ export class CatalogComponent implements OnInit {
   }
 
 
-  reserveBasket(uitleendatum: string) {
-
-    let stringToDate = new Date(uitleendatum);
-    let inleverdatum = new Date(stringToDate.getTime() + (1000 * 60 * 60 * 24 * 7));
+  reserveBasket(result: string) {
+    console.log(result)
+    let stringToDate = new Date(result);
+    console.log(stringToDate)
+    /*let inleverdatum = new Date(stringToDate.getTime() + (1000 * 60 * 60 * 24 * 7));*/
+    /*console.log(inleverdatum)*/
 
 
 
@@ -170,7 +169,6 @@ export class CatalogComponent implements OnInit {
     //TODO dit werkend maken. Idee is produtcen in een niewe lijst te douwen op de manier zoals je hieronder al
     //TODO gedaan hebt. Validatie weer toevoegen voor de datum.. Nu mag alles en moet je het met de hand doen.
     //TODO Inleverdatum mag je weghalen bij dialog en zet een leuke zin neer: iets van inleveren moet 7 dagen later.
-
     let tempArr: Array<any> = [];
     let arr: Array<any> = [];
 
@@ -192,13 +190,12 @@ export class CatalogComponent implements OnInit {
 
     let aRef = this.itemsToReserve.push({});
     aRef.set({
-      inleverdatum: inleverdatum.toLocaleString(),
-      uitleendatum: uitleendatum,
+      inleverdatum: '30-11-2017',
+      uitleendatum: result,
       lener: this.auth.getDisplayName(),
       lenermail: this.auth.getEmail(),
       status: "gereserveerd",
       // producten: tempArr
-
       producten: {
         1: {id: 'Arduino NAno', aantal: 2},
         2: {id: 'Arduino Uno', aantal: 1}

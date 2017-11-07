@@ -1,87 +1,3 @@
-<!--
-  FOR TESTING PURPOSE COMMENT THE ENTIRE HTML DOC
-  AND UNCOMMENT THE REST OF THE HTML DOC! ROLES ARE ACTIVE!
--->
-
-<!--<div class="container">-->
-<!--<div class="col-sm-2 mt-3 pl-0" *ngIf="auth.getRol() != 'user'">-->
-  <!--<button type="button" class="btn btn-primary btn-sm btn-block" (click)="openCreateProductDialog()">Create product</button>-->
-<!--</div>-->
-  <!--<div class="row">-->
-    <!--<div class="col-sm-9 mt-3">-->
-      <!--<div class="card bg-light">-->
-      <!--<div class="card-header font-weight-bold">Catalog</div>-->
-      <!--<div class="card-body pt-0 pl-0 pb-0 pr-0">-->
-      <!--<table class="table table-hover mb-0">-->
-        <!--<thead>-->
-        <!--<tr>-->
-          <!--<th *ngIf="auth.getRol() != 'user'">ID</th>-->
-          <!--<th *ngIf="auth.getRol() != 'user'">Product nr.</th>-->
-          <!--<th>Product</th>-->
-          <!--<th>Qty.</th>-->
-          <!--<th>Edit</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr *ngFor="let products of productList | async">-->
-          <!--<td *ngIf="auth.getRol() != 'user' && products.active == 'true'">{{ products.$key }}</td>-->
-          <!--<td *ngIf="auth.getRol() != 'user' && products.active == 'true'">{{ products.productnumber }}</td>-->
-          <!--<td *ngIf="products.active == 'true'">-->
-            <!--<div class="media">-->
-              <!--<img class="d-flex mr-3 media-image" src="{{ products.image }}" alt="Product Image">-->
-              <!--<div class="media-body">-->
-                <!--<h5 class="mt-0">{{ products.name }}</h5>-->
-                <!--{{ products.description }}-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<span class="badge badge-danger"> {{ products.category }} </span>-->
-            <!--<span class="badge badge-info"> {{ products.tags }} </span>-->
-          <!--</td >-->
-          <!--<td *ngIf="products.active == 'true'">{{ products.qty }}</td>-->
-          <!--<td *ngIf="products.active == 'true'">-->
-            <!--<button type="button" class="btn btn-primary btn-sm btn-block" (click)="openQtyDialog(products.name, products.qty)" *ngIf="auth.getRol() == 'user'">Add</button>-->
-            <!--<button type="button" class="btn btn-warning btn-sm btn-block" *ngIf="auth.getRol() != 'user'">Edit</button>-->
-            <!--<button type="button" class="btn btn-danger btn-sm btn-block" *ngIf="auth.getRol() != 'user'">Delete</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-      <!--</table>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="col-sm-3 mt-3 pt-0 pl-0 pb-0 pr-0" *ngIf="auth.getRol() == 'user'">-->
-    <!--<div class="card bg-light basket-min-height pb-5">-->
-      <!--<div class="card-header font-weight-bold">Basket</div>-->
-      <!--<div class="card-body pt-0 pl-0 pb-0 pr-0">-->
-        <!--<table class="table table-hover mb-0">-->
-          <!--<thead>-->
-          <!--<tr>-->
-            <!--<th>Product</th>-->
-            <!--<th>Qty.</th>-->
-          <!--</tr>-->
-          <!--</thead>-->
-          <!--<tbody>-->
-            <!--<tr *ngFor="let item of basketList">-->
-              <!--<td>{{ item[0] }}</td>-->
-              <!--<td>{{ item[1] }}</td>-->
-            <!--</tr>-->
-          <!--</tbody>-->
-        <!--</table>-->
-        <!--<button type="button" class="btn btn-primary btn-sm mr-3 basket-button">Reserve</button>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
-<!--</div>-->
-<!--</div>-->
-
-
-<!--
-  ENABLE FOR TESTING PURPOSE!
-  ALL ROLE FUNTION ARE REMOVED!
--->
-
 <div class="container">
   <div class="col-sm-2 mt-3 pl-0">
   <button type="button" class="btn btn-primary btn-sm btn-block" (click)="openCreateProductDialog()">Create product</button>
@@ -89,58 +5,58 @@
   <div class="row">
     <div class="col-sm-9 mt-3">
       <div class="card bg-light">
-        <div class="card-header font-weight-bold">Catalog</div>
-        <div class="card-body pt-0 pl-0 pb-0 pr-0">
-          <table class="table table-hover mb-0">
-            <thead>
-            <tr>
-              <th>ID</th>
-              <th>Product nr.</th>
-              <th>Product</th>
-              <th>Qty.</th>
-              <th>Edit</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let products of productList | async">
-              <td *ngIf="products.active == 'true'">{{ products.$key }}</td>
-              <td *ngIf="products.active == 'true'">{{ products.productnumber }}</td>
-              <td *ngIf="products.active == 'true'">
-                <div class="media">
-                  <img class="d-flex mr-3 media-image" src="{{ products.image }}" alt="Product Image">
-                  <div class="media-body">
-                    <h5 class="mt-0">{{ products.name }}</h5>
-                    {{ products.description }}
-                  </div>
-                </div>
-                <span class="badge badge-danger"> {{ products.category }} </span>
-                <span class="badge badge-info"> {{ products.tags }} </span>
-              </td >
-              <td *ngIf="products.active == 'true'">{{ products.qty }}</td>
-              <td *ngIf="products.active == 'true'">
-                <button type="button" class="btn btn-primary btn-sm btn-block" (click)="openQtyDialog(products.name, products.qty)">Add</button>
-                <button type="button" class="btn btn-warning btn-sm btn-block" >Edit</button>
-                <button type="button" class="btn btn-danger btn-sm btn-block" >Delete</button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="card-header font-weight-bold">Catalog</div>
+      <div class="card-body pt-0 pl-0 pb-0 pr-0">
+      <table class="table table-hover mb-0">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product nr.</th>
+          <th>Product</th>
+          <th>Qty.</th>
+          <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let products of productList | async">
+          <td>{{ products.id }}</td>
+          <td>{{ products.productnumber }}</td>
+          <td>
+            <div class="media">
+              <img class="d-flex mr-3 media-image" src="{{ products.image }}" alt="Product Image">
+              <div class="media-body">
+                <h5 class="mt-0">{{ products.name }}</h5>
+                {{ products.description }}
+              </div>
+            </div>
+            <span class="badge badge-danger"> {{ products.category }} </span>
+            <span class="badge badge-info"> {{ products.tags }} </span>
+          </td>
+          <td>{{ products.qty }}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm btn-block" (click)="openQtyDialog(products.name, products.qty)">Add</button>
+            <button type="button" class="btn btn-warning btn-sm btn-block">Edit</button>
+            <button type="button" class="btn btn-danger btn-sm btn-block">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
       </div>
+    </div>
     </div>
 
     <div class="col-sm-3 mt-3 pt-0 pl-0 pb-0 pr-0">
-      <div class="card bg-light basket-min-height pb-5">
-        <div class="card-header font-weight-bold">Basket</div>
-        <div class="card-body pt-0 pl-0 pb-0 pr-0">
-          <table class="table table-hover mb-0">
-            <thead>
-            <tr>
-              <th>Product</th>
-              <th>Qty.</th>
-            </tr>
-            </thead>
-            <tbody>
+    <div class="card bg-light basket-min-height pb-5">
+      <div class="card-header font-weight-bold">Basket</div>
+      <div class="card-body pt-0 pl-0 pb-0 pr-0">
+        <table class="table table-hover mb-0">
+          <thead>
+          <tr>
+            <th>Product</th>
+            <th>Qty.</th>
+          </tr>
+          </thead>
+          <tbody>
             <tr *ngFor="let item of basketList">
               <td>{{ item[0] }}</td>
               <td>{{ item[1] }}</td>

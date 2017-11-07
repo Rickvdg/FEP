@@ -162,13 +162,6 @@ export class CatalogComponent implements OnInit {
     let inleverdatum = new Date(stringToDate.getTime() + (1000 * 60 * 60 * 24 * 7));
     console.log(inleverdatum)
 
-
-
-
-
-    //TODO dit werkend maken. Idee is produtcen in een niewe lijst te douwen op de manier zoals je hieronder al
-    //TODO gedaan hebt. Validatie weer toevoegen voor de datum.. Nu mag alles en moet je het met de hand doen.
-    //TODO Inleverdatum mag je weghalen bij dialog en zet een leuke zin neer: iets van inleveren moet 7 dagen later.
     let tempArr: Array<any> = [];
     let arr: Array<any> = [];
 
@@ -182,11 +175,6 @@ export class CatalogComponent implements OnInit {
 
       tempArr.push(arr);
     }
-
-
-
-
-
 
     let aRef = this.itemsToReserve.push({});
     aRef.set({
@@ -202,11 +190,6 @@ export class CatalogComponent implements OnInit {
       }
     });
   }
-
-
-
-
-
 }
 
 @Component({

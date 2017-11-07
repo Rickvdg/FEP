@@ -36,7 +36,6 @@ export class CatalogComponent implements OnInit {
 
   constructor(public database: AngularFireDatabase, public dialog: MatDialog, dateAdapter: DateAdapter<NativeDateAdapter>, public auth: AuthenticationService) {
     this.productList = this.database.list('/catalog-products');
-    dateAdapter.setLocale('nl-NL');
 
 
 

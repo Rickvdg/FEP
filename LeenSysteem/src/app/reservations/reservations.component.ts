@@ -91,7 +91,6 @@ export class ReservationsComponent implements OnInit {
   getProduct(id: string) {
     this.item = this.database.object('/catalog-products/'+id, { preserveSnapshot: true });
     this.item.subscribe(snapshot => {
-      // console.log(snapshot.val().name);
       this.name = snapshot.val().name;
     });
     return this.name;

@@ -1,6 +1,6 @@
 <div>
   <h4 class="mt-0">Reservation date:</h4>
-    <input placeholder="Inleverdatum (dd-MM-yyyy)" maxlength="10" minlength="10" #inleverdatumInput>
+    <input placeholder="Inleverdatum (dd-MM-yyyy)" [(ngModel)]="data.loanDate" maxlength="10" minlength="10" #inleverdatumInput>
   <div>
     <h4 class="mt-0">Submission date:</h4>
     <input placeholder="Uitleendatum (dd-MM-yyyy)" maxlength="10" minlength="10" #uitleendatumInput>
@@ -16,7 +16,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of test">
+      <tr *ngFor="let item of data.test">
         <td>{{ item[0] }}</td>
         <td>{{ item[1] }}</td>
       </tr>
@@ -25,4 +25,5 @@
   </div>
 </div>
 <button type="button" (click)="onNoClick()"  class="btn but-sm btn-secondary">Cancel</button>
-<button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" (click)="reserveBasket(inleverdatumInput.value,uitleendatumInput.value,'gereserveerd')">Reserve</button>
+<!--<button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" (click)="reserveBasket(inleverdatumInput.value,uitleendatumInput.value,'gereserveerd')">Reserve</button>-->
+<button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" [mat-dialog-close]="data.loanDate">Reserve</button>

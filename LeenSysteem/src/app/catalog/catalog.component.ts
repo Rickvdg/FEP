@@ -25,10 +25,27 @@ export class CatalogComponent implements OnInit {
   // Max qty of selected product
   maxQty: number = 0;
 
-  constructor(public database: AngularFireDatabase,
-              public dialog: MatDialog, dateAdapter: DateAdapter<NativeDateAdapter>) {
+
+
+  itemsToReserve: FirebaseListObservable<any[]>;
+
+
+
+
+
+
+  constructor(public database: AngularFireDatabase, public dialog: MatDialog, dateAdapter: DateAdapter<NativeDateAdapter>, public auth: AuthenticationService) {
     this.productList = this.database.list('/catalog-products');
     dateAdapter.setLocale('nl-NL');
+
+
+
+    ///////////
+    this.itemsToReserve = database.list('/leningen-test');
+    //////////
+
+
+
   }
 
   ngOnInit() {
@@ -106,7 +123,7 @@ export class CatalogComponent implements OnInit {
       }
     });
   }
-    /**
+  /**
    * Defines the max qty of the selected product that can be ordered.
    * It looks at the max qty of the selected product in the database
    * and if the selected product is already in the basketList.
@@ -127,13 +144,77 @@ export class CatalogComponent implements OnInit {
 
     let dialogRef = this.dialog.open(BasketConfirmationDialog, {
       width: '500px',
-      data : { test : this.basketList}
+      data : { test: this.basketList}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+
+      if(result != null){
+        console.log(result);
+        this.reserveBasket(result);
+      }
+
     });
   }
+
+  minDate = new Date();
+  myFilter = (d: Date): boolean => {
+    const day = d.getDay();
+    return day !== 0 && day !== 6;
+  }
+
+  reserveBasket(uitleendatum: string) {
+
+    let stringToDate = new Date(uitleendatum);
+    let inleverdatum = new Date(stringToDate.getTime() + (1000 * 60 * 60 * 24 * 7));
+
+
+
+
+    //TODO dit werkend maken. Idee is produtcen in een niewe lijst te douwen op de manier zoals je hieronder al
+    //TODO gedaan hebt. Validatie weer toevoegen voor de datum.. Nu mag alles en moet je het met de hand doen.
+    //TODO Inleverdatum mag je weghalen bij dialog en zet een leuke zin neer: iets van inleveren moet 7 dagen later.
+
+    let tempArr: Array<any> = [];
+    let arr: Array<any> = [];
+
+    for(let i of this.basketList){
+
+      let aantal: string[] = ["aantal", [i][1]];
+      let name: string[] = ["id", [i][0]];
+
+      arr.push(aantal);
+      arr.push(name);
+
+      tempArr.push(arr);
+    }
+
+
+
+
+
+
+    let aRef = this.itemsToReserve.push({});
+    aRef.set({
+      inleverdatum: inleverdatum.toLocaleString(),
+      uitleendatum: uitleendatum,
+      lener: this.auth.getDisplayName(),
+      lenermail: this.auth.getEmail(),
+      status: "Geresereerd",
+      // producten: tempArr
+
+      producten: {
+        1: {id: 'Arduino Nano', aantal: 2},
+        2: {id: 'Arduino Uno', aantal: 1}
+      }
+    });
+  }
+
+
+
+
+
 }
 
 @Component({
@@ -164,56 +245,10 @@ export class BasketQtyDialog {
 })
 
 export class BasketConfirmationDialog {
-  datex: Date;
-  items: FirebaseListObservable<any[]>;
-  status: string;
 
-  getDate() {
-    try {
-      let yourDate = new Date(this.datex.getTime() + (1000 * 60 * 60 * 24 * 7));
-
-      return yourDate;
-    }
-    catch (E) {
-      console.log('no date yet');
-      console.log('');
-    }
-  }
-
-  minDate = new Date();
-  myFilter = (d: Date): boolean => {
-    const day = d.getDay();
-    return day !== 0 && day !== 6;
-  }
-
-  constructor( public dialogRef: MatDialogRef<BasketConfirmationDialog>, @Inject(MAT_DIALOG_DATA,)
-               public database: AngularFireDatabase,
-               public auth: AuthenticationService,
-               public dialog: MatDialog
-  ) {
-    this.items = database.list('/leningen-test');
-  }
+  constructor( public dialogRef: MatDialogRef<BasketQtyDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  reserveBasket(inleverdatum: string, uitleendatum: string, status: string) {
-    console.log(inleverdatum);
-    console.log(uitleendatum);
-    console.log(status);
-    let aRef = this.items.push({});
-    console.log(aRef.key);
-    aRef.set({
-      inleverdatum: inleverdatum,
-      uitleendatum: uitleendatum,
-      lener: this.auth.getDisplayName(),
-      lenermail: this.auth.getEmail(),
-      status: status,
-      producten: {
-        1: {id: 'Arduino Nano', aantal: 2},
-        2: {id: 'Arduino Uno', aantal: 1}
-      }
-    })
   }
 }

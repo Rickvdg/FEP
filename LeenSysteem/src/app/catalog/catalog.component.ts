@@ -159,8 +159,8 @@ export class CatalogComponent implements OnInit {
     console.log(result)
     let stringToDate = new Date(result);
     console.log(stringToDate)
-    /*let inleverdatum = new Date(stringToDate.getTime() + (1000 * 60 * 60 * 24 * 7));*/
-    /*console.log(inleverdatum)*/
+    let inleverdatum = new Date(stringToDate.getTime() + (1000 * 60 * 60 * 24 * 7));
+    console.log(inleverdatum)
 
 
 

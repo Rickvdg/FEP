@@ -1,7 +1,5 @@
 <div class="jumbotron">
   <!--*ngIf="auth.getRol() == 'admin' || auth.getRol() == 'moderator'"-->
-  <input placeholder="Inleverdatum (dd-MM-yyyy)" maxlength="10" minlength="10" #inleverdatumInput><input placeholder="Uitleendatum (dd-MM-yyyy)" maxlength="10" minlength="10" #uitleendatumInput>
-  <button mat-raised-button *ngIf="inleverdatumInput.checkValidity()" (click)="addLening(inleverdatumInput.value,uitleendatumInput.value,'gereserveerd')">Add reservering test</button>
   <div  *ngIf="(items | async)?.length > 0">
     <h2>Reserveringen:</h2>
     <table class="table">

@@ -1,6 +1,8 @@
-    <form  [formGroup]="productForm" novalidate>
+<div class="card bg-light pb-3">
+  <div class="card-header font-weight-bold">Add Product</div>
+  <div class="card-body pt-0 pl-0 pb-0 pr-0">
 
-      <h4>Add Product</h4>
+    <form  [formGroup]="productForm" novalidate>
 
       <!--name-->
       <div>
@@ -18,7 +20,7 @@
       <div>
         <mat-form-field class="input-group">
           <span class="input-group-addon" id="basic-addon2">Quantity:</span>
-          <input matInput placeholder="quantity" formControlName="qty" type="number" min="0" pattern="[0-9]"  aria-describedby="basic-addon2">
+          <input matInput placeholder="quantity" formControlName="qty" type="number" min="0" aria-describedby="basic-addon2">
 
         </mat-form-field>
       </div>
@@ -84,18 +86,16 @@
       <div>
         <mat-form-field class="input-group">
           <span class="input-group-addon" id="basic-addon7">Image:</span>
-          <input matInput placeholder="image link" formControlName="image" type="text"  aria-describedby="basic-addon7">
+          <input matInput placeholder="image url" formControlName="image" type="text"  aria-describedby="basic-addon7">
 
         </mat-form-field>
-      </div>
-      <div *ngIf="productForm.get('image').invalid" class="alert alert-danger error-message" role="alert" [hidden]="productForm.get('image').valid || !productForm.get('image').dirty">
-        Image is required.
       </div>
 
       <!--active-->
       <div>
         <mat-form-field class="input-group">
           <span class="input-group-addon" id="basic-addon8">Active:</span>
+
           <input type="radio"
                  value="true"
                  [checked]="true"
@@ -119,3 +119,5 @@
       </div>
     </form>
 
+  </div>
+</div>

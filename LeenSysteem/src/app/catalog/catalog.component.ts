@@ -2,8 +2,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { CatalogProductComponent } from "../catalog-product/catalog-product.component";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, NativeDateAdapter, MatDatepicker} from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-catalog',
@@ -24,8 +25,23 @@ export class CatalogComponent implements OnInit {
   // Max qty of selected product
   maxQty: number = 0;
 
-  constructor( public database: AngularFireDatabase, public dialog: MatDialog) {
+
+
+  itemsToReserve: FirebaseListObservable<any[]>;
+
+
+
+
+
+
+  constructor(public database: AngularFireDatabase, public dialog: MatDialog, dateAdapter: DateAdapter<NativeDateAdapter>, public auth: AuthenticationService) {
     this.productList = this.database.list('/catalog-products');
+
+    ///////////
+    this.itemsToReserve = database.list('/leningen-test');
+    //////////
+
+
   }
 
   ngOnInit() {
@@ -103,7 +119,6 @@ export class CatalogComponent implements OnInit {
       }
     });
   }
-
   /**
    * Defines the max qty of the selected product that can be ordered.
    * It looks at the max qty of the selected product in the database
@@ -119,6 +134,73 @@ export class CatalogComponent implements OnInit {
       }
     }
     return maxQty;
+  }
+
+
+  /**This is a click function in the html to open the basket so you can check the reservation.
+   * It wil open in a new dialog and checks the date which has been filled in.
+   * This date will be given as result to reserveBasket to continue the process of adding it in the database.
+   */
+  openBasket(){
+
+    let dialogRef = this.dialog.open(BasketConfirmationDialog, {
+      width: '500px',
+      data : { test: this.basketList}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+      if(result != null){
+        console.log(result);
+        this.reserveBasket(result);
+      }
+
+    });
+  }
+
+
+  /**This is the buttonfunction of completing the reservation.
+   * First it converts the date from previous filled in date to an new submission date by adding 7 days to it.
+   * Then it will also recreate the array from the basket with the selected products, so you can check if your order are in order.
+   * Finally after pressing the reserve button, the application starts to add everthing to the firebase database.
+   * Sadly enough there were a few problems which left me with no chose but to hardcode some of the data it had to send.
+   */
+
+  reserveBasket(uitleendatum: string) {
+    console.log(uitleendatum)
+    let stringToDate = new Date(uitleendatum);
+    console.log(stringToDate)
+    let inleverdatum = new Date(stringToDate.getTime() + (1000 * 60 * 60 * 24 * 7));
+    console.log(inleverdatum)
+
+    let tempArr: Array<any> = [];
+    let arr: Array<any> = [];
+
+    for(let i of this.basketList){
+
+      let aantal: string[] = ["aantal", [i][1]];
+      let name: string[] = ["id", [i][0]];
+
+      arr.push(aantal);
+      arr.push(name);
+
+      tempArr.push(arr);
+    }
+
+    let aRef = this.itemsToReserve.push({});
+    aRef.set({
+      inleverdatum: '30-11-2017',
+      uitleendatum: uitleendatum,
+      lener: this.auth.getDisplayName(),
+      lenermail: this.auth.getEmail(),
+      status: "gereserveerd",
+      // producten: tempArr
+      producten: {
+        1: {id: 'Arduino NAno', aantal: 2},
+        2: {id: 'Arduino Uno', aantal: 1}
+      }
+    });
   }
 }
 
@@ -137,6 +219,32 @@ export class BasketQtyDialog {
   minMaxControl = new FormControl("", [ Validators.max(this.data.maxQty), Validators.min(1), Validators.required]);
 
   constructor( public dialogRef: MatDialogRef<BasketQtyDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'basket-confirmation-dialog',
+  templateUrl: 'basket-confirmation-dialog.html',
+  styleUrls: ['basket-confirmation-dialog.css']
+})
+
+export class BasketConfirmationDialog {
+
+  constructor( public dialogRef: MatDialogRef<BasketQtyDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
+
+  /**
+   * Creates a minimum date and a filter for the datepicker,
+   * so you can only pick the dates which are allowed
+   * @type {Date}
+   */
+  minDate = new Date();
+  myFilter = (d: Date): boolean => {
+    const day = d.getDay();
+    return day !== 0 && day !== 6;
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

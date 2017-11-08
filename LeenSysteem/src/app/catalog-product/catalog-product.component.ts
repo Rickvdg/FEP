@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { AngularFireDatabase} from 'angularfire2/database-deprecated';
-import { MatDialogRef, MatRadioButton } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 /**
  * This component is used by the lender to add new products to the database.
@@ -50,7 +50,7 @@ export class CatalogProductComponent implements OnInit {
       active: ['true'],
       category: [, Validators.required],
       description: [, Validators.required],
-      image: [, Validators.required],
+      image: [, ],
       name: [, Validators.required],
       productnumber: [, Validators.required],
       qty: [, [Validators.min(0), Validators.required, Validators.pattern('^\\d+$')]],
